@@ -7,8 +7,11 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @Configuration
 @EnableWebMvc
+@EnableSwagger2
 @ComponentScan(basePackages = "com.shopping.*")
 public class WebMvcConfig implements WebMvcConfigurer {
 
@@ -21,6 +24,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	// Add static resources
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		
+		//Css,js, img for SSR
 		registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/static/");
+		
+		//Swagger
+		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");	 
+	    registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
+	
 }

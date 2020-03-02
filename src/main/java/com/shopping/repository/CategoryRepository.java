@@ -11,6 +11,8 @@ import com.shopping.entity.Category;
 @Repository("categoryRepository")
 public interface CategoryRepository extends JpaRepository<Category, Integer>{
 	
-	@Query("SELECT c.categoryName FROM Category c")
+	@Query("SELECT c.name FROM Category c")
 	List<String> getAllCategoryName();
+	
+	List<Category> findAll();
 }

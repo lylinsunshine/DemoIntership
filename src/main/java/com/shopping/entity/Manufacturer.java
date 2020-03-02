@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +31,7 @@ public class Manufacturer {
 	@Column(name = "manufacturer_id")
 	private int id;
 	
-	@Column(name = "manufacturer_name")
+	@Column(name = "name")
 	private String name;
 	
 	@Column(name = "description")
@@ -41,6 +43,7 @@ public class Manufacturer {
 	@Column(name = "image")
 	private String image;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "manufacturerEntity", fetch = FetchType.LAZY)
 	private Set<Product> productSet;
 }

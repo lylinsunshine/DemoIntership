@@ -35,6 +35,9 @@ public class Category {
 	@Column(name = "description")
 	private String description;
 	
+	@Column(name = "parent_id")
+	private String parentId;
+	
 	@OneToMany(mappedBy = "categoryEntity", fetch = FetchType.LAZY)
 	private Set<Product> productSet;
 }
