@@ -1,6 +1,7 @@
 package com.shopping.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,12 @@ public class ProductDAOImpl implements IProductDAO {
 
 	@Override
 	public List<String> getAllProductName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<Product> page(int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}

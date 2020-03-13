@@ -3,6 +3,7 @@ package com.shopping.dao.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +46,12 @@ public class CategoryDAOImpl implements ICategoryDAO{
 	public List<Category> recusiveCategory() {
 		// TODO Auto-generated method stub
 		return categoryRepository.recusiveCategory();
+	}
+
+	@Override
+	public Page<Category> page(int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
