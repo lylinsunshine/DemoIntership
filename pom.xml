@@ -250,12 +250,37 @@
 		<finalName>shopping</finalName>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat8-maven-plugin</artifactId>
-				<version>2.2</version>
+				<groupId>com.microsoft.azure</groupId>
+				<artifactId>azure-webapp-maven-plugin</artifactId>
+				<version>1.9.0</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<!-- Specify v2 schema -->
+					<schemaVersion>v2</schemaVersion>
+					<!-- App information -->
+					<subscriptionId>
+						be86a75d-2a67-408d-bca9-3c1b0dd3145c
+					</subscriptionId>
+					<resourceGroup>
+						shopping
+					</resourceGroup>
+					<appName>shopping-thang</appName>
+					<region>REGION</region>
+					<!-- Java Runtime Stack for App Service on Windows -->
+					<runtime>
+						<os>windows</os>
+						<javaVersion>1.8</javaVersion>
+						<webContainer>tomcat 9.0</webContainer>
+					</runtime>
+					<deployment>
+						<resources>
+							<resource>
+								<directory>${project.basedir}/target</directory>
+								<includes>
+									<include>*.war</include>
+								</includes>
+							</resource>
+						</resources>
+					</deployment>
 				</configuration>
 			</plugin>
 		</plugins>
