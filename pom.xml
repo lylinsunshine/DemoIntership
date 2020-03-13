@@ -264,7 +264,7 @@
 						shopping
 					</resourceGroup>
 					<appName>shopping-thang</appName>
-					<region>REGION</region>
+					<region>southeastasia</region>
 					<!-- Java Runtime Stack for App Service on Windows -->
 					<runtime>
 						<os>windows</os>
