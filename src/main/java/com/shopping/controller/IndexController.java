@@ -17,7 +17,7 @@ public class IndexController {
 	
 	@GetMapping
 	public String index(ModelMap map) {
-		map.addAttribute("listCategories", categoryService.getAllCategoryName());
+		map.addAttribute("listCategories", categoryService.getAllCategoriesName());
 		return "index";
 	}
 	

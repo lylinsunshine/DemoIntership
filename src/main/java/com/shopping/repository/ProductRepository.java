@@ -7,5 +7,6 @@ import com.shopping.entity.Product;
 
 @Repository("productRepository")
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-
+	
+	Product findById(int id);
 }

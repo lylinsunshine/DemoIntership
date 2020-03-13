@@ -11,7 +11,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseModel {
+public class ResponseModel<T> {
+	private T data;
 	private HttpStatus httpStatus;
 	private String message;
 }

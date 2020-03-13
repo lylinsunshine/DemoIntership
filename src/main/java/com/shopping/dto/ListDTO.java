@@ -1,4 +1,4 @@
-package com.shopping.util;
+package com.shopping.dto;
 
 import java.util.List;
 
@@ -11,8 +11,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PageModel<T> {
+public class ListDTO<T> {
 	private List<T> list;
-	private int currentPage;
-	private int totalPage;		
 }

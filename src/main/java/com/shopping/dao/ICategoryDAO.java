@@ -6,5 +6,9 @@ import com.shopping.entity.Category;
 
 public interface ICategoryDAO extends GenericDAO<Category, Integer>{
 		
-	List<String> getAllCategoryName();
+	List<String> getAllCategoriesName();
+	
+	List<Category> getAllCategories();
+	
+	List<Category> recusiveCategory();
 }

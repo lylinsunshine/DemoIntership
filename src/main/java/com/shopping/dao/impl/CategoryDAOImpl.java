@@ -30,9 +30,21 @@ public class CategoryDAOImpl implements ICategoryDAO{
 	}
 
 	@Override
-	public List<String> getAllCategoryName() {
+	public List<String> getAllCategoriesName() {
 		// TODO Auto-generated method stub
 		return categoryRepository.getAllCategoryName();
+	}
+
+	@Override
+	public List<Category> getAllCategories() {
+		// TODO Auto-generated method stub
+		return categoryRepository.findAll();
+	}
+
+	@Override
+	public List<Category> recusiveCategory() {
+		// TODO Auto-generated method stub
+		return categoryRepository.recusiveCategory();
 	}
 
 }

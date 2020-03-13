@@ -13,6 +13,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer>{
 	
 	@Query("SELECT c.name FROM Category c")
 	List<String> getAllCategoryName();
-	
-	List<Category> findAll();
+
+	@Query("select c from Category c left join fetch c.children")
+	List<Category> recusiveCategory();
 }
