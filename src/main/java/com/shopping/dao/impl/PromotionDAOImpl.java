@@ -1,6 +1,7 @@
 package com.shopping.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,12 @@ public class PromotionDAOImpl implements IPromotionDAO {
 	public void delete(Promotion entity) {
 		// TODO Auto-generated method stub
 		promotionRepository.delete(entity);
+	}
+
+	@Override
+	public Page<Promotion> page(int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
