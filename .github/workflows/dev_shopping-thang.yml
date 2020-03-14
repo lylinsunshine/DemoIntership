@@ -28,5 +28,5 @@ jobs:
       with:
         app-name: 'shopping-thang'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_bb33c6cb94a348d0a526e50c6d4fb84c }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_91045874621649288b0cf57dcc595f62 }}
         package: '${{ github.workspace }}/target/*.war'
