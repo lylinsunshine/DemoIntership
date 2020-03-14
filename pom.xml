@@ -247,7 +247,8 @@
 	</dependencies>
 
 	<build>
-		<finalName>shopping</finalName>
+		<!-- <finalName>shopping</finalName> -->
+		<finalName>ROOT</finalName>
 		<plugins>
 		</plugins>
 	</build>
