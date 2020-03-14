@@ -24,7 +24,7 @@ jobs:
       run: mvn clean install
 
     - name: Rename output war file
-      run: rename shopping.war ROOT.war
+      run: rename C:\Users\runneradmin\.m2\repository\com\shopping\shopping\0.0.1-SNAPSHOT\shopping-0.0.1-SNAPSHOT.war C:\Users\runneradmin\.m2\repository\com\shopping\shopping\0.0.1-SNAPSHOT\ROOT.war
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v1
