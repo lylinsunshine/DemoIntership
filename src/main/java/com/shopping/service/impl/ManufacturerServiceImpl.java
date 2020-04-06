@@ -1,5 +1,7 @@
 package com.shopping.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -43,12 +45,16 @@ public class ManufacturerServiceImpl implements IManufacturerService {
 //		return manufacturerDAO.findAll();
 //	}
 //
-//	@Override
-//	public Optional<Manufacturer> findById(int manufacturerId) {
-//		// TODO Auto-generated method stub
-//		return manufacturerDAO.findById(manufacturerId);
-//	}
-//
+	@Override
+	public ResponseModel<Manufacturer> findById(int manufacturerId) {
+		// TODO Auto-generated method stub
+		Optional<Manufacturer> manufacturer = manufacturerDAO.findById(manufacturerId);
+		if(manufacturer.isPresent())
+			return new ResponseModel<Manufacturer>(manufacturer.get(), HttpStatus.OK, "Get OK");
+		else 
+			return new ResponseModel<Manufacturer>(null, HttpStatus.NOT_FOUND, "Get Fail");
+	}
+
 	@Override
 	public ResponseModel<Manufacturer> add(Manufacturer manufacturer) {
 		// TODO Auto-generated method stub
@@ -62,11 +68,12 @@ public class ManufacturerServiceImpl implements IManufacturerService {
 //		manufacturerDAO.deleteById(manufacturerId);
 //	}
 //
-//	@Override
-//	public void update(Manufacturer manufacturer) {
-//		// TODO Auto-generated method stub
-//		manufacturerDAO.insertOrUpdate(manufacturer);
-//	}
+	@Override
+	public ResponseModel<Manufacturer> update(Manufacturer manufacturer) {
+		// TODO Auto-generated method stub
+		manufacturerDAO.insertOrUpdate(manufacturer);
+		return new ResponseModel<Manufacturer>(null, HttpStatus.OK, Constants.UPDATE_MANUFACTURER_SUCCESSFUL);
+	}
 	
 	
 

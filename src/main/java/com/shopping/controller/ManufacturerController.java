@@ -37,13 +37,13 @@ public class ManufacturerController {
 //		return manufacturerService.findAll();
 //	}
 //	
-//	@GetMapping("/{manufacturerId}")
-//	public Optional<Manufacturer> getOneManufacturer( @PathVariable int manufacturerId) {
-//		return manufacturerService.findById(manufacturerId);
-//	}
+	@GetMapping("/{manufacturerId}")
+	public ResponseModel<Manufacturer> getOneManufacturer( @PathVariable int manufacturerId) {
+		return manufacturerService.findById(manufacturerId);
+	}
 //	
 	@PostMapping
-	public  ResponseModel<Manufacturer> addManufacturer(@RequestBody Manufacturer manufacturer) {
+	public ResponseModel<Manufacturer> addManufacturer(@RequestBody Manufacturer manufacturer) {
 		return manufacturerService.add(manufacturer);
 	}
 //	
@@ -52,10 +52,10 @@ public class ManufacturerController {
 //		manufacturerService.deleteById(manufacturerId);
 //	}
 //	
-//	@PutMapping
-//	public void updateManufacturer(@RequestBody Manufacturer manufacturer) {
-//		manufacturerService.update(manufacturer);
-//	}
+	@PutMapping
+	public ResponseModel<Manufacturer> updateManufacturer(@RequestBody Manufacturer manufacturer) {
+		return manufacturerService.update(manufacturer);
+	}
 	
 	
 }

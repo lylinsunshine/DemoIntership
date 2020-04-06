@@ -15,12 +15,14 @@ public interface IManufacturerService {
 //	ResponseModel<List<Manufacturer>> findAll();
 
 //	List<Manufacturer> findAll();
-//	
+	
 //	Optional<Manufacturer> findById(int manufacturerId);
-//	
+	
+	ResponseModel<Manufacturer> findById(int manufacturerId);
+	
 	ResponseModel<Manufacturer> add(Manufacturer manufacturer);
 //	
 //	void deleteById(int manufacturerId);
-//	
-//	void update(Manufacturer manufacturer);
+	
+	ResponseModel<Manufacturer> update(Manufacturer manufacturer);
 }
