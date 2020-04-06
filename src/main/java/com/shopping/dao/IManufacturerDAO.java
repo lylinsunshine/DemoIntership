@@ -12,4 +12,5 @@ public interface IManufacturerDAO extends GenericDAO<Manufacturer, Integer> {
 	Optional<Manufacturer> findById(int manufacturerId);
 	
 	void deleteById(int manufacturerId);
+	
 }

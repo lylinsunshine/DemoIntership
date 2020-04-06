@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "com.shopping")
 @PropertySource(value = { "classpath:data-jpa.properties" })
 public class JPAConfig {
-	
+
 	@Autowired
 	private Environment env;
 

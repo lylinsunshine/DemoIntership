@@ -42,10 +42,10 @@ public class ManufacturerController {
 //		return manufacturerService.findById(manufacturerId);
 //	}
 //	
-//	@PostMapping
-//	public void addManufacturer(@RequestBody Manufacturer manufacturer) {
-//		manufacturerService.add(manufacturer);
-//	}
+	@PostMapping
+	public  ResponseModel<Manufacturer> addManufacturer(@RequestBody Manufacturer manufacturer) {
+		return manufacturerService.add(manufacturer);
+	}
 //	
 //	@DeleteMapping("/{manufacturerId}")
 //	public void deleteManufacturerById(@PathVariable int manufacturerId) {

@@ -18,7 +18,7 @@ public interface IManufacturerService {
 //	
 //	Optional<Manufacturer> findById(int manufacturerId);
 //	
-//	void add(Manufacturer manufacturer);
+	ResponseModel<Manufacturer> add(Manufacturer manufacturer);
 //	
 //	void deleteById(int manufacturerId);
 //	
