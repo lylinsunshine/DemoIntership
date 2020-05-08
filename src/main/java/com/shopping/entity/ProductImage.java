@@ -1,7 +1,5 @@
 package com.shopping.entity;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,35 +19,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "category")
+@Table(name = "product_image")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class ProductImage {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "category_id")
+	@Column(name = "product_image_id")
 	private int id;
-
-	@Column(name = "name")
-	private String name;
 	
-	@Column(name = "description")
-	private String description;
+	@Column(name = "image")
+	private String image;
 	
-	@JsonIgnore
+	@Column(name = "display_order")
+	private int displayOrder;
+		
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="parent_id")
-    private Category parent;
-	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "parent_id")
-	private Set<Category> children;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "categoryEntity", fetch = FetchType.LAZY)
-	private Set<Product> productSet;
+	@JoinColumn(name = "product_id")
+	private Product productEntity;
 }

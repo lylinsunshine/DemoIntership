@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,8 +42,29 @@ public class Product {
 	@Column(name = "image")
 	private String image;
 	
+	@Column(name = "sku", unique = true)
+	private String sku;
+	
 	@Column(name = "description")
 	private String description;
+	
+	@Column(name = "short_description")
+	private String shortDescription;
+	
+	@Column(name = "full_description")
+	private String fullDescription;
+	
+	@Column(name = "url", unique = true)
+	private String url;
+	
+	@Column(name = "meta_title")
+	private String metaTitle;
+	
+	@Column(name = "meta_keyword")
+	private String metaKeyword;
+	
+	@Column(name = "meta_description")
+	private String metaDescription;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
@@ -51,12 +74,18 @@ public class Product {
 	@JoinColumn(name = "manufacturer_id")
 	private Manufacturer manufacturerEntity;
 	
+	@OneToMany(mappedBy = "productEntity", fetch = FetchType.EAGER)
+	private Set<ProductImage> productImageSet;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY)
 	private Set<OrderDetail> orderDetailSet;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY)
 	private Set<Review> reviewSet;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY)
 	private Set<Wishlist> wishlistSet;
 }

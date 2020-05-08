@@ -20,6 +20,9 @@ import org.springframework.stereotype.Component;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @WebFilter("/**")
 public class CORSFilter implements Filter {
+	
+	public CORSFilter() {
+	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {

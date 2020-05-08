@@ -1,6 +1,7 @@
 package com.shopping.dao;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,6 @@ public interface GenericDAO<T, K extends Serializable> {
 	 */
 	void delete(T entity);
 
-	Page<T> page(int pageNumber, int pageSize);
+	Page<T> page(int pageNumber, int pageSize, Map<String, Object> map);
 
 }

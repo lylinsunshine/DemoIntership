@@ -7,5 +7,6 @@ import com.shopping.entity.User;
 
 @Repository("userRepository")
 public interface UserRepository extends JpaRepository<User, String>{
-
+	User findByUsername(String username);
+	User findByUsernameAndPassword(String username, String password);
 }

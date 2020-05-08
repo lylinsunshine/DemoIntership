@@ -11,4 +11,6 @@ public interface ICategoryService {
 	List<Category> getAllCategories();
 	
 	List<Category> recusiveCategory();
+	
+	List<Category> findAll();
 }

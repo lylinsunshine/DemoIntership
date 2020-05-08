@@ -1,16 +1,47 @@
-//package com.shopping.service.impl;
-//
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
-//
-//import com.shopping.service.IUserDetailsService;
-//
-//public class UserDetailsServiceImpl implements IUserDetailsService {
-//
-//	@Override
-//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//	
-//}
+package com.shopping.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.stereotype.Service;
+
+import com.shopping.dao.IUserDAO;
+import com.shopping.entity.User;
+import com.shopping.service.IUserDetailsService;
+
+@Service("userService")
+public class UserDetailsServiceImpl implements IUserDetailsService {
+
+	//https://www.boraji.com/spring-security-5-custom-userdetailsservice-example
+
+	@Autowired
+	private IUserDAO userDAO;
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		User user =  userDAO.findByUsername(username);		
+		UserBuilder builder = null;
+		if (user != null) {
+			  //user.setPassword("{noop}".concat(user.getPassword()));
+		      builder = org.springframework.security.core.userdetails.User.withUsername(username);
+		      builder.password(user.getPassword());
+		      builder.roles(user.getRole());
+		    } else {
+		      throw new UsernameNotFoundException("User not found.");
+		    }
+		return builder.build();
+	}
+
+	@Override
+	public String login(String username, String password) {
+		// TODO Auto-generated method stub
+		User user =  userDAO.findByUsernameAndPassword(username, password);
+		if (user != null) {
+			return user.getUsername();
+		}
+		return null;
+	}
+	
+}
