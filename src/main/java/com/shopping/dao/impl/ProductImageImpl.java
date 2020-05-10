@@ -1,6 +1,8 @@
 package com.shopping.dao.impl;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,6 +37,24 @@ public class ProductImageImpl implements IProductImageDAO{
 	public Page<ProductImage> page(int pageNumber, int pageSize, Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Optional<ProductImage> findById(int productImageId) {
+		// TODO Auto-generated method stub
+		return productImageRepository.findById(productImageId);
+	}
+
+	@Override
+	public List<ProductImage> findListAfterDelete(int displayOrder, int productId) {
+		// TODO Auto-generated method stub
+		return productImageRepository.findListAfterDelete(displayOrder, productId);
+	}
+
+	@Override
+	public List<ProductImage> findByProductId(int productId) {
+		// TODO Auto-generated method stub
+		return productImageRepository.findByProductId(productId);
 	}
 
 }

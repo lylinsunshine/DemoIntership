@@ -15,4 +15,10 @@ public interface IProductDAO extends GenericDAO<Product, Integer>{
 	
 	void deleteById(int productId);
 	
+	boolean isNameExist(String name);
+	
+	boolean isSkuExist(String sku);
+	
+	boolean isUrlExist(String url);
+	
 }

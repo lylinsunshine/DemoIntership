@@ -75,5 +75,23 @@ public class ProductDAOImpl implements IProductDAO {
 		// TODO Auto-generated method stub
 		return productRepository.findAll(Specification.where(ProductSpec.hasManufacturer("Thang1")));
 	}
+
+	@Override
+	public boolean isNameExist(String name) {
+		// TODO Auto-generated method stub
+		return productRepository.existsByName(name);
+	}
+
+	@Override
+	public boolean isSkuExist(String sku) {
+		// TODO Auto-generated method stub
+		return productRepository.existsBySku(sku);
+	}
+
+	@Override
+	public boolean isUrlExist(String url) {
+		// TODO Auto-generated method stub
+		return productRepository.existsByUrl(url);
+	}
 	
 }

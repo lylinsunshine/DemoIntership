@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.io.FilenameUtils;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,9 @@ public class ProductServiceImpl implements IProductService {
 	
 	@Autowired
 	private IProductImageDAO productImageDAO;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@Override
 	public ResponseModel<Product> findById(int productId) {
@@ -74,12 +78,13 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public ResponseModel<Product> update(Product product) {
 		// TODO Auto-generated method stub
-//		String name = null;
-//		for (MultipartFile multipartFile : file) {
-//			name = storeFile(multipartFile);
-//		}
-//		product.setImage(name);
-		productDAO.insertOrUpdate(product);
+		ModelMapper modelMapper2 = new ModelMapper();
+		modelMapper2.getConfiguration().setSkipNullEnabled(true).setMatchingStrategy(MatchingStrategies.STRICT);
+		
+		Product p = productDAO.findById(product.getId()).get();
+		modelMapper2.map(product, p);
+		
+		//productDAO.insertOrUpdate(p);
 		return new ResponseModel<Product>(null, HttpStatus.OK, "Update Product Succesful");
 	}
 
@@ -121,6 +126,70 @@ public class ProductServiceImpl implements IProductService {
 		// TODO Auto-generated method stub
 		productDAO.deleteById(manufacturerId);
 		return new ResponseModel<Product>(null, HttpStatus.OK, "Delete Product Successful");
+	}
+
+	@Override
+	public ResponseModel<Boolean> isNameExist(String name) {
+		// TODO Auto-generated method stub
+		boolean isNameExist = productDAO.isNameExist(name);
+		return new ResponseModel<Boolean>(isNameExist, HttpStatus.OK, "isNameExist");
+	}
+
+	@Override
+	public ResponseModel<Boolean> isSkuExist(String sku) {
+		// TODO Auto-generated method stub
+		boolean isSkuExist = productDAO.isSkuExist(sku);
+		return new ResponseModel<Boolean>(isSkuExist, HttpStatus.OK, "isNameExist");
+	}
+
+	@Override
+	public ResponseModel<Boolean> isUrlExist(String url) {
+		// TODO Auto-generated method stub
+		boolean isUrlExist = productDAO.isUrlExist(url);
+		return new ResponseModel<Boolean>(isUrlExist, HttpStatus.OK, "isNameExist");
+	}
+
+	@Override
+	public ResponseModel<Product> updateDisplayOrder(int imageId1, int imageId2) {
+		// TODO Auto-generated method stub
+		ProductImage image1 = productImageDAO.findById(imageId1).get();
+		ProductImage image2 = productImageDAO.findById(imageId2).get();
+		
+		int temp1 = image1.getDisplayOrder();
+		int temp2 = image2.getDisplayOrder();
+		image1.setDisplayOrder(temp2);
+		image2.setDisplayOrder(temp1);
+		
+		return new ResponseModel<Product>(null, HttpStatus.OK, "Update Display Order");
+	}
+
+	@Override
+	public ResponseModel<List<ProductImage>> deleteProductImage(int imageId) {
+		// TODO Auto-generated method stub
+		ProductImage image = productImageDAO.findById(imageId).get();
+		int productId = image.getProductEntity().getId();
+		int displayOrder = image.getDisplayOrder();
+		productImageDAO.delete(image);
+		
+		List<ProductImage> listNeedRearrange = productImageDAO.findListAfterDelete(displayOrder, productId);
+		if(listNeedRearrange.size()!=0) {
+			for (ProductImage productImage : listNeedRearrange) {
+				productImage.setDisplayOrder(productImage.getDisplayOrder()-1);
+			}
+		}
+		
+		List<ProductImage> listImage = productImageDAO.findByProductId(productId);
+
+		return new ResponseModel<List<ProductImage>>(listImage, HttpStatus.OK, "Delete Success");
+	}
+
+	@Override
+	public ResponseModel<List<ProductImage>> addProductImage(ProductImage productImage) {
+		// TODO Auto-generated method stub
+		System.out.println(productImage.getProductEntity().getId());
+		productImageDAO.insertOrUpdate(productImage);
+		List<ProductImage> listImage = productImageDAO.findByProductId(productImage.getProductEntity().getId());
+		return new ResponseModel<List<ProductImage>>(listImage, HttpStatus.OK, "Add Image Success");
 	}
 
 }

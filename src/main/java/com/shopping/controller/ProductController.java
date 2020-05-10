@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -15,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,6 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shopping.dto.ProductDTO;
 import com.shopping.entity.Manufacturer;
 import com.shopping.entity.Product;
+import com.shopping.entity.ProductImage;
 import com.shopping.service.IProductService;
 import com.shopping.util.PageModel;
 import com.shopping.util.ResponseModel;
@@ -67,6 +70,21 @@ public class ProductController {
 		 System.out.println(product.getName());
 		return productService.getAll();
 	}
+	
+	@GetMapping("/checkname/{name}")
+	public ResponseModel<Boolean> isNameExist(@PathVariable String name) {
+		return productService.isNameExist(name);
+	}
+	
+	@GetMapping("/checksku/{sku}")
+	public ResponseModel<Boolean> isSkuExist(@PathVariable String sku) {
+		return productService.isSkuExist(sku);
+	}
+	
+	@GetMapping("/checkurl/{url}")
+	public ResponseModel<Boolean> isUrlExist(@PathVariable String url) {
+		return productService.isUrlExist(url);
+	}
 
 	@GetMapping("/{productId}")
 	public ResponseModel<Product> getOneProduct(@PathVariable int productId) {
@@ -81,22 +99,32 @@ public class ProductController {
 		 return productService.findById(3);
 	}
 
-//	@PostMapping
-//	public ResponseModel<Product> addProduct(@RequestBody Product product, @RequestParam("file") MultipartFile file) {
-//		return productService.add(product, file);
-//	}
-	
-	
-	
 	@PostMapping
 	public ResponseModel<Product> addProduct(@RequestBody Product product) {
 		return productService.add(product);		
 	}
 
-	@PutMapping
+	@PatchMapping
 	public ResponseModel<Product> updateProduct(@RequestBody Product product) {
 		return productService.update(product);
 	}
+	
+	@PostMapping("/display-order")
+	public ResponseModel<Product> updateImageDisplayOrder(@RequestParam int imageId1, @RequestParam int imageId2) {
+		return productService.updateDisplayOrder(imageId1, imageId2);
+	}
+	
+	@PostMapping("/delete-image")
+	public ResponseModel<List<ProductImage>> deleteImage(@RequestParam int imageId) {
+		return productService.deleteProductImage(imageId);
+	}
+	
+	@PostMapping("/add-image")
+	public ResponseModel<List<ProductImage>> deleteImage(@RequestBody ProductImage productImage) {
+		return productService.addProductImage(productImage);
+	}
+	
+	
 	
 	@PutMapping("/test")
 	public ResponseModel<Product> updateProduct(@RequestParam String product, @RequestParam MultipartFile[] files) throws IOException {

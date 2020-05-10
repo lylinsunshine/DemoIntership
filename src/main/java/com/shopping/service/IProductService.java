@@ -1,12 +1,14 @@
 package com.shopping.service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shopping.dto.ProductDTO;
 import com.shopping.entity.Product;
+import com.shopping.entity.ProductImage;
 import com.shopping.util.PageModel;
 import com.shopping.util.ResponseModel;
 
@@ -26,6 +28,17 @@ public interface IProductService {
 	
 	ResponseModel<Product> update(Product Product);
 	
-	//ResponseModel<Product> update(Product Product, MultipartFile[] file) throws IOException;
+	ResponseModel<Boolean> isNameExist(String name);
+	
+	ResponseModel<Boolean> isSkuExist(String sku);
+	
+	ResponseModel<Boolean> isUrlExist(String url);
+	
+	ResponseModel<Product> updateDisplayOrder(int imageId1, int imageId2);
+	
+	ResponseModel<List<ProductImage>> deleteProductImage(int imageId);
+	
+	ResponseModel<List<ProductImage>> addProductImage(ProductImage productImage);
+	
 
 }

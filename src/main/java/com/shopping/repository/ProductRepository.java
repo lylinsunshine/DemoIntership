@@ -12,5 +12,10 @@ import com.shopping.specification.ManufacturerSpec;
 
 @Repository("productRepository")
 public interface ProductRepository extends JpaRepository<Product, Integer>, JpaSpecificationExecutor<Product> {
-
+	
+	 boolean existsByName(String name);
+	 
+	 boolean existsBySku(String sku);
+	 
+	 boolean existsByUrl(String url);
 }
