@@ -33,6 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shopping.dto.ProductDTO;
 import com.shopping.entity.Manufacturer;
 import com.shopping.entity.Product;
+import com.shopping.entity.ProductAttribute;
 import com.shopping.entity.ProductImage;
 import com.shopping.service.IProductService;
 import com.shopping.util.PageModel;
@@ -85,6 +86,11 @@ public class ProductController {
 	public ResponseModel<Boolean> isUrlExist(@PathVariable String url) {
 		return productService.isUrlExist(url);
 	}
+	
+	@GetMapping("/checkvalue")
+	public ResponseModel<Boolean> isValueExist(@RequestParam String value, @RequestParam int productId) {
+		return productService.isValueExist(value, productId);
+	}
 
 	@GetMapping("/{productId}")
 	public ResponseModel<Product> getOneProduct(@PathVariable int productId) {
@@ -136,5 +142,15 @@ public class ProductController {
 	@DeleteMapping("/{productId}")
 	public ResponseModel<Product> deleteProduct(@PathVariable int productId) {
 		return productService.deleteById(productId);
+	}
+	
+	@DeleteMapping("/product-attribute/{productAttributeId}")
+	public ResponseModel<List<ProductAttribute>> deleteProductAttribute(@PathVariable int productAttributeId) {
+		return productService.deleteProductAttribute(productAttributeId);
+	}
+	
+	@PostMapping("/product-attribute")
+	public ResponseModel<List<ProductAttribute>> insertOrUpdateAtribute(@RequestBody ProductAttribute productAttribute) {
+		return productService.insertOrUpdateAttribue(productAttribute);
 	}
 }

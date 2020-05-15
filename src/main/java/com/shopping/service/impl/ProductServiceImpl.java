@@ -24,11 +24,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.shopping.dao.IProductAttributeDAO;
 import com.shopping.dao.IProductDAO;
 import com.shopping.dao.IProductImageDAO;
 import com.shopping.dto.ProductDTO;
 import com.shopping.entity.Manufacturer;
 import com.shopping.entity.Product;
+import com.shopping.entity.ProductAttribute;
 import com.shopping.entity.ProductImage;
 import com.shopping.service.IProductService;
 import com.shopping.util.Constants;
@@ -44,6 +46,9 @@ public class ProductServiceImpl implements IProductService {
 	
 	@Autowired
 	private IProductImageDAO productImageDAO;
+	
+	@Autowired
+	private IProductAttributeDAO productAttributeDAO;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -186,10 +191,44 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public ResponseModel<List<ProductImage>> addProductImage(ProductImage productImage) {
 		// TODO Auto-generated method stub
-		System.out.println(productImage.getProductEntity().getId());
+		//System.out.println(productImage.getProductEntity().getId());
 		productImageDAO.insertOrUpdate(productImage);
 		List<ProductImage> listImage = productImageDAO.findByProductId(productImage.getProductEntity().getId());
 		return new ResponseModel<List<ProductImage>>(listImage, HttpStatus.OK, "Add Image Success");
+	}
+
+	@Override
+	public ResponseModel<List<ProductAttribute>> deleteProductAttribute(int productAttributeId) {
+		// TODO Auto-generated method stub
+		int productId = productAttributeDAO.findById(productAttributeId).get().getProductEntity().getId();
+		productAttributeDAO.deleteById(productAttributeId);
+		List<ProductAttribute> list = productAttributeDAO.findByProductId(productId);
+		return new ResponseModel<List<ProductAttribute>>(list, HttpStatus.OK, "Delete Success");
+	}
+
+	@Override
+	public ResponseModel<Boolean> isValueExist(String value, int productId) {
+		// TODO Auto-generated method stub
+		boolean isValueExist = productAttributeDAO.isValueExist(value, productId);
+		return new ResponseModel<Boolean>(isValueExist, HttpStatus.OK, "isValueExist");
+	}
+
+	@Override
+	public ResponseModel<List<ProductAttribute>> insertOrUpdateAttribue(ProductAttribute productAttribute) {
+		// TODO Auto-generated method stub
+		ModelMapper modelMapper2 = new ModelMapper();
+		modelMapper2.getConfiguration().setSkipNullEnabled(true).setMatchingStrategy(MatchingStrategies.STRICT);
+		
+		if(productAttribute.getId()==0) {
+			productAttributeDAO.insertOrUpdate(productAttribute);
+		} else {
+			ProductAttribute p = productAttributeDAO.findById(productAttribute.getId()).get();		
+			modelMapper2.map(productAttribute, p);
+		}
+		
+		List<ProductAttribute> list = productAttributeDAO.findByProductId(productAttribute.getProductEntity().getId());
+		return new ResponseModel<List<ProductAttribute>>(list, HttpStatus.OK, "Update Success");
+		
 	}
 
 }

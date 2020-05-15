@@ -2,6 +2,8 @@ package com.shopping.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.shopping.entity.Category;
 import com.shopping.service.ICategoryService;
 
 @Service
+@Transactional
 public class CategoryServiceImpl implements ICategoryService{
 
 	@Autowired
@@ -31,6 +34,12 @@ public class CategoryServiceImpl implements ICategoryService{
 	public List<Category> recusiveCategory() {
 		// TODO Auto-generated method stub
 		return categoryDAO.recusiveCategory();
+	}
+
+	@Override
+	public List<Category> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

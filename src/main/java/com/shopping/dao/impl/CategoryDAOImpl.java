@@ -1,6 +1,7 @@
 package com.shopping.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,7 +50,7 @@ public class CategoryDAOImpl implements ICategoryDAO{
 	}
 
 	@Override
-	public Page<Category> page(int pageNumber, int pageSize) {
+	public Page<Category> page(int pageNumber, int pageSize, Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return null;
 	}

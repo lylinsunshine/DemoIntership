@@ -79,6 +79,9 @@ public class Product {
 	@OneToMany(mappedBy = "productEntity", fetch = FetchType.EAGER)
 	private Set<ProductImage> productImageSet;
 	
+	@OneToMany(mappedBy = "productEntity", fetch = FetchType.EAGER)
+	private Set<ProductAttribute> productAttributeSet;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY)
 	private Set<OrderDetail> orderDetailSet;
