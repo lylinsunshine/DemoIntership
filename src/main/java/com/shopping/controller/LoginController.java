@@ -32,4 +32,5 @@ public class LoginController {
 		//System.out.println(token);
 		return new ResponseModel<String>(token, HttpStatus.ACCEPTED, "Token");
 	}
+
 }

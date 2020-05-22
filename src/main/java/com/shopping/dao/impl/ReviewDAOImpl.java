@@ -1,6 +1,7 @@
 package com.shopping.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,9 +38,15 @@ public class ReviewDAOImpl implements IReviewDAO {
 	}
 
 	@Override
-	public Page<Review> page(int pageNumber, int pageSize) {
+	public Page<Review> page(int pageNumber, int pageSize, Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Review> getReviewByProductId(int productId) {
+		// TODO Auto-generated method stub
+		return reviewRepository.findByProductId(productId);
 	}
 
 }

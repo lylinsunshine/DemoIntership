@@ -2,6 +2,7 @@ package com.shopping.dao.impl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,6 +41,12 @@ public class AttributeDAOImpl implements IAttributeDAO {
 	public List<Attribute> getAllAttributes() {
 		// TODO Auto-generated method stub
 		return attributeRepository.findAll();
+	}
+
+	@Override
+	public Optional<Attribute> findById(int id) {
+		// TODO Auto-generated method stub
+		return attributeRepository.findById(id);
 	}
 
 }

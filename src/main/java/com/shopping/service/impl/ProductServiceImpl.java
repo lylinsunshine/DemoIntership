@@ -8,9 +8,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -24,10 +26,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.shopping.dao.IAttributeDAO;
 import com.shopping.dao.IProductAttributeDAO;
 import com.shopping.dao.IProductDAO;
 import com.shopping.dao.IProductImageDAO;
 import com.shopping.dto.ProductDTO;
+import com.shopping.dto.ProductDetailDTO;
+import com.shopping.entity.Attribute;
 import com.shopping.entity.Manufacturer;
 import com.shopping.entity.Product;
 import com.shopping.entity.ProductAttribute;
@@ -49,6 +54,9 @@ public class ProductServiceImpl implements IProductService {
 	
 	@Autowired
 	private IProductAttributeDAO productAttributeDAO;
+	
+	@Autowired
+	private IAttributeDAO attributeDAO;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -229,6 +237,28 @@ public class ProductServiceImpl implements IProductService {
 		List<ProductAttribute> list = productAttributeDAO.findByProductId(productAttribute.getProductEntity().getId());
 		return new ResponseModel<List<ProductAttribute>>(list, HttpStatus.OK, "Update Success");
 		
+	}
+
+	@Override
+	public ResponseModel<ProductDetailDTO> getProductInfo(String url) {
+		// TODO Auto-generated method stub
+		Product product = productDAO.findByUrl(url);
+		ProductDetailDTO productDTO = modelMapper.map(product, ProductDetailDTO.class);		
+		if(productDTO.getProductAttributeSet()!=null) {
+			productDTO.getProductAttributeSet().removeIf(productAttribute -> productAttribute.getStatus()==false);
+			
+			List<Attribute> attributes = new ArrayList<Attribute>();
+			for (ProductAttribute productAttribute : productDTO.getProductAttributeSet()) {
+				Attribute attribute =  attributeDAO.findById(productAttribute.getAttributeId()).get();
+				if(!attributes.contains(attribute))
+					attributes.add(attribute);
+			}
+			productDTO.setAttributeList(attributes);
+		}
+		if(productDTO.getProductImageSet()!=null) {
+			productDTO.getProductImageSet().removeIf(productImage -> productImage.getDisplayOrder()>4);
+		}
+		return new ResponseModel<ProductDetailDTO>(productDTO, HttpStatus.OK, "Get Success");
 	}
 
 }

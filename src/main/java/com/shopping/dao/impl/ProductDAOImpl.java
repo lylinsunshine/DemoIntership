@@ -93,5 +93,11 @@ public class ProductDAOImpl implements IProductDAO {
 		// TODO Auto-generated method stub
 		return productRepository.existsByUrl(url);
 	}
+
+	@Override
+	public Product findByUrl(String url) {
+		// TODO Auto-generated method stub
+		return productRepository.findByUrl(url);
+	}
 	
 }

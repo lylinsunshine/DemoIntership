@@ -7,4 +7,6 @@ import com.shopping.entity.Review;
 public interface IReviewDAO extends GenericDAO<Review, Integer> {
 	
 	List<Review> findAll();
+	
+	List<Review> getReviewByProductId(int productId);
 }

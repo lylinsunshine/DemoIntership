@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shopping.dto.ProductDTO;
+import com.shopping.dto.ProductDetailDTO;
 import com.shopping.entity.Product;
 import com.shopping.entity.ProductAttribute;
 import com.shopping.entity.ProductImage;
@@ -46,6 +47,8 @@ public interface IProductService {
 	ResponseModel<List<ProductAttribute>> deleteProductAttribute(int productAttributeId);
 	
 	ResponseModel<List<ProductAttribute>> insertOrUpdateAttribue(ProductAttribute productAttribute);
+	
+	ResponseModel<ProductDetailDTO> getProductInfo(String url);
 	
 
 }

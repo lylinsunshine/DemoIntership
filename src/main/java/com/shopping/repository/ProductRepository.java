@@ -18,4 +18,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer>, JpaS
 	 boolean existsBySku(String sku);
 	 
 	 boolean existsByUrl(String url);
+	 
+	 Product findByUrl(String url);
 }

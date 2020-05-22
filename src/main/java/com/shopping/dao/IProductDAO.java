@@ -21,4 +21,5 @@ public interface IProductDAO extends GenericDAO<Product, Integer>{
 	
 	boolean isUrlExist(String url);
 	
+	Product findByUrl(String url);
 }

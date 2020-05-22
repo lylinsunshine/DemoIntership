@@ -1,5 +1,8 @@
 package com.shopping.service;
 
-public interface IPostService {
+import com.shopping.util.ResponseModel;
 
+public interface IPostService {
+	
+	ResponseModel<String> login();
 }
