@@ -39,9 +39,6 @@ public class User {
 	@Column(name = "phone_number")
 	private String phoneNumber;	
 	
-	@Column(name = "address")
-	private String address;
-	
 	@Column(name = "role")
 	private String role;
 	
@@ -56,5 +53,8 @@ public class User {
 	
 	@OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
 	private Set<Review> reviewSet;
+	
+	@OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
+	private Set<Address> addressSet;
 	
 }
