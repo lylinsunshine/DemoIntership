@@ -82,7 +82,7 @@ public class UserServiceImpl implements IUserService {
 	public ResponseModel<ClientUserInfoDTO> updateUserInfo(User user) {
 		// TODO Auto-generated method stub
 		User u = userDAO.findByUsername(user.getUsername());
-		if(user.getPassword()!=null) {
+		if(!user.getPassword().isEmpty()) {
 			u.setPassword(user.getPassword());
 		}
 		u.setName(user.getName());

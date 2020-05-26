@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -23,17 +26,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDetail {
-
-	@EmbeddedId
-	private OrderDetailId orderDetailId;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@MapsId("order_id")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "order_detail_id")
+	private int id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
 	private Order orderEntity;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("product_id")
 	@JoinColumn(name = "product_id")
 	private Product productEntity;
 
@@ -42,6 +45,12 @@ public class OrderDetail {
 
 	@Column(name = "quantity")
 	private int quantity;
+	
+	@Column(name = "sub_price")
+	private Double subPrice;
+	
+	@Column(name = "attribute")
+	private String attribute;
 	
 	
 	

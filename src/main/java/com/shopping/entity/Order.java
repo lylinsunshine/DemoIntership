@@ -34,19 +34,22 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_id")
 	private int id;
-	
-	@Column(name = "date")
-	@Temporal(TemporalType.DATE)
-	private Date date;
-	
+		
 	@Column(name = "address")
 	private String address;
 	
 	@Column(name = "payment_method")
 	private String paymentMethod;
 	
-	@Column(name = "status")
-	private String status;
+	@Column(name = "delivery_status")
+	private String deliveryStatus;
+	
+	@Column(name = "payment_status")
+	private String paymentStatus;
+	
+	@Column(name = "date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date date;
 		
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "username", referencedColumnName = "username")
