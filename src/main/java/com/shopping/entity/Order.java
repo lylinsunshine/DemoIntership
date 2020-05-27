@@ -16,7 +16,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,15 +55,28 @@ public class Order {
 	
 	@Column(name = "date")
 	@Temporal(TemporalType.TIMESTAMP)
+	@Getter(value = AccessLevel.NONE)
 	private Date date;
-		
+	
+	@Transient	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	private Double totalPrice;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm yyyy-MM-dd", timezone = "Asia/Ho_Chi_Minh")
+	public Date getDate() {
+		return date;
+	}
+	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "username", referencedColumnName = "username")
 	private User userEntity;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY)
 	private Set<OrderDetail> orderDetailSet;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "orderEntity")
 	private ReturnRequest returnRequestEntiy;
 }

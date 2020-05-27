@@ -1,5 +1,6 @@
 package com.shopping.dao.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,18 @@ public class OderDetailDAOImpl implements IOrderDetailDAO{
 	public Page<OrderDetail> page(int pageNumber, int pageSize, Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Double getTotalPriceByOrderId(int orderId) {
+		// TODO Auto-generated method stub
+		return orderDetailRepository.getTotalPriceByOrderId(orderId);
+	}
+
+	@Override
+	public List<OrderDetail> findAllByOrderId(int orderId) {
+		// TODO Auto-generated method stub
+		return orderDetailRepository.findAllByOrderId(orderId);
 	}
 
 }
