@@ -96,4 +96,16 @@ public class CategoryDAOImpl implements ICategoryDAO{
 		return categoryRepository.isCategoryHaveChild(id);
 	}
 
+	@Override
+	public List<Category> findAllSubCategory(int id) {
+		// TODO Auto-generated method stub
+		return categoryRepository.findAllSubCategory(id);
+	}
+
+	@Override
+	public Category findByUrl(String url) {
+		// TODO Auto-generated method stub
+		return categoryRepository.findByUrl(url);
+	}
+
 }

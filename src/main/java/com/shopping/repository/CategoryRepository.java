@@ -24,4 +24,9 @@ public interface CategoryRepository extends JpaRepository<Category, Integer>, Jp
 	
 	@Query("select count(c) from Category c where c.parent.id= ?1")
 	int isCategoryHaveChild(int id);
+	
+	@Query(value = "SELECT * FROM category WHERE parent_id = ?1 OR category_id = ?1", nativeQuery = true)
+	List<Category> findAllSubCategory(int id);
+	
+	Category findByUrl(String url);
 }

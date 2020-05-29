@@ -122,4 +122,10 @@ public class ProductDAOImpl implements IProductDAO {
 		}
 	}
 
+	@Override
+	public List<Product> findAllByParentCategory(int categoryId) {
+		// TODO Auto-generated method stub
+		return productRepository.findAllByParentCategory(categoryId);
+	}
+
 }

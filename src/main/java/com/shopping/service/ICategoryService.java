@@ -3,7 +3,10 @@ package com.shopping.service;
 import java.util.List;
 import java.util.Map;
 
+import com.shopping.dto.ClientCategoryPageDTO;
+import com.shopping.dto.ClientManufacturerDTO;
 import com.shopping.entity.Category;
+import com.shopping.entity.Manufacturer;
 import com.shopping.util.PageModel;
 import com.shopping.util.ResponseModel;
 
@@ -30,4 +33,6 @@ public interface ICategoryService {
 	ResponseModel<Boolean> isUrlExist(String url);
 	
 	ResponseModel<Integer> isCategoryHaveChild(int id);
+	
+	ResponseModel<ClientCategoryPageDTO> clientAllManufacturerBelongCategory(String url);
 }

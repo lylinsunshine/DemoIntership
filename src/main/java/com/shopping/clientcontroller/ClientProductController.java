@@ -1,6 +1,7 @@
 package com.shopping.clientcontroller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shopping.dto.ClientCategoryPageDTO;
+import com.shopping.dto.ClientManufacturerDTO;
 import com.shopping.dto.ClientProductDTO;
 import com.shopping.dto.ProductDTO;
 import com.shopping.dto.ProductDetailDTO;
 import com.shopping.entity.Product;
+import com.shopping.service.ICategoryService;
 import com.shopping.service.IProductService;
 import com.shopping.util.PageModel;
 import com.shopping.util.ResponseModel;
@@ -26,6 +30,9 @@ public class ClientProductController {
 
 	@Autowired
 	private IProductService productService;
+	
+	@Autowired
+	private ICategoryService cateoryService;
 	
 	@GetMapping("/{productUrl}")
 	public ResponseModel<ProductDetailDTO> getProductInfo(@PathVariable String productUrl) {
@@ -49,5 +56,10 @@ public class ClientProductController {
 //		System.out.println(sortBy);
 
 		return productService.clientFindAll(page, size, map);
+	}
+	
+	@GetMapping("/category/{categoryUrl}/manufacturer")
+	public ResponseModel<ClientCategoryPageDTO> clientCategoryPage(@PathVariable String categoryUrl){
+		return cateoryService.clientAllManufacturerBelongCategory(categoryUrl);
 	}
 }

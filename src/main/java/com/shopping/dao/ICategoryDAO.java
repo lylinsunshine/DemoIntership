@@ -21,4 +21,8 @@ public interface ICategoryDAO extends GenericDAO<Category, Integer>{
 	boolean isUrlExist(String url);
 	
 	int isCategoryHaveChild(int id);
+	
+	List<Category> findAllSubCategory(int id);
+	
+	Category findByUrl(String url);
 }
