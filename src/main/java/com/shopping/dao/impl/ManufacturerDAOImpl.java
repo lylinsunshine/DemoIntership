@@ -67,4 +67,10 @@ public class ManufacturerDAOImpl implements IManufacturerDAO {
 		return manufacturerRepository.findAll(spec, pageable);
 	}
 
+	@Override
+	public boolean isNameExist(String name) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -40,8 +40,10 @@ public class Category {
 	@Column(name = "description")
 	private String description;
 	
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@Column(name = "url")
+	private String url;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="parent_id")
     private Category parent;
 	

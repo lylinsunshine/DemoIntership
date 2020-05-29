@@ -51,5 +51,30 @@ public class ProductSpec {
 			return builder.and(predicates.toArray(new Predicate[predicates.size()]));
 		};
 	}
+	
+	public static Specification<Product> clientSearch(String name, int priceFrom, int priceTo, int manufacturerId, int categoryId) {
+		return (root, query, builder) -> {
+			List<Predicate> predicates = new ArrayList<>();
+			if (name != null) {
+				predicates.add(builder.like(root.get("name"), "%" + name + "%"));
+			}
+			if (manufacturerId != 0) {
+				predicates.add(builder.equal(root.get("manufacturerEntity").get("id"), manufacturerId));
+			}
+			if (categoryId != 0) {
+				predicates.add(builder.equal(root.get("categoryEntity").get("id"), categoryId));
+			}
+			if (priceFrom != 0 && priceTo == 0) {
+				predicates.add(builder.ge(root.get("price"), priceFrom));
+			}
+			if (priceFrom == 0 && priceTo != 0) {
+				predicates.add(builder.le(root.get("price"), priceTo));
+			}
+			if (priceFrom != 0 && priceTo != 0) {
+				predicates.add(builder.between(root.get("price"), priceFrom, priceTo));
+			}
+			return builder.and(predicates.toArray(new Predicate[predicates.size()]));
+		};
+	}
 
 }

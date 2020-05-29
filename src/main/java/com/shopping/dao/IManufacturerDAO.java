@@ -13,4 +13,6 @@ public interface IManufacturerDAO extends GenericDAO<Manufacturer, Integer> {
 	
 	void deleteById(int manufacturerId);
 	
+	boolean isNameExist(String name);
+	
 }

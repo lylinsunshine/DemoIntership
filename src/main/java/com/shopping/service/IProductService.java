@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.shopping.dto.ClientProductDTO;
 import com.shopping.dto.ProductDTO;
 import com.shopping.dto.ProductDetailDTO;
 import com.shopping.entity.Product;
@@ -17,6 +18,8 @@ import com.shopping.util.ResponseModel;
 public interface IProductService {
 	
 	ResponseModel<PageModel<ProductDTO>> findAll(int pageNumber, int pageSize, Map<String, Object> map);
+	
+	ResponseModel<PageModel<ClientProductDTO>> clientFindAll(int pageNumber, int pageSize, Map<String, Object> map);
 	
 	ResponseModel<Product> findById(int productId);
 	

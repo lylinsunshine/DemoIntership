@@ -10,9 +10,11 @@ import javax.persistence.criteria.Root;
 
 import org.bouncycastle.jcajce.provider.asymmetric.rsa.CipherSpi.PKCS1v1_5Padding_PublicOnly;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Component;
 
 import com.shopping.entity.Manufacturer;
 
+@Component
 public class ManufacturerSpec {
 
 	public static Specification<Manufacturer> hasName(String name) {

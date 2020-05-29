@@ -25,4 +25,6 @@ public interface IOrderService {
 	ResponseModel<PageModel<Order>> findAll(int pageNumber, int pageSize, Map<String, Object> map);
 	
 	ResponseModel<Order> confirmPayment(int orderId);
+	
+	ResponseModel<Order> cancelOrder(int orderId);
 }

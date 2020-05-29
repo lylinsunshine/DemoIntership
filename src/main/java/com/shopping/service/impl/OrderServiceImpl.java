@@ -130,4 +130,15 @@ public class OrderServiceImpl implements IOrderService {
 		return new ResponseModel<Order>(order, HttpStatus.OK, "Update Success");
 	}
 
+	@Override
+	public ResponseModel<Order> cancelOrder(int orderId) {
+		// TODO Auto-generated method stub
+		Order order = orderDAO.findById(orderId);
+		order.setDeliveryStatus("CANCELLED");
+		if(order.getPaymentMethod().equals("COD")) {
+			order.setPaymentStatus("FAIL");
+		}
+		return new ResponseModel<Order>(order, HttpStatus.OK, "Update Success");
+	}
+
 }

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,7 +53,7 @@ public class ProductDAOImpl implements IProductDAO {
 		int priceFrom = (int) map.get("priceFrom");
 		int priceTo = (int) map.get("priceTo");
 		int manufacturerId = (int) map.get("manufacturerId");
-		
+
 		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("name"));
 		Specification<Product> spec = ProductSpec.search(name, priceFrom, priceTo, manufacturerId);
 		return productRepository.findAll(spec, pageable);
@@ -99,5 +100,26 @@ public class ProductDAOImpl implements IProductDAO {
 		// TODO Auto-generated method stub
 		return productRepository.findByUrl(url);
 	}
-	
+
+	@Override
+	public Page<Product> clientPage(int pageNumber, int pageSize, Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		String name = (String) map.get("name");
+		int priceFrom = (int) map.get("priceFrom");
+		int priceTo = (int) map.get("priceTo");
+		int manufacturerId = (int) map.get("manufacturerId");
+		int categoryId = (int) map.get("categoryId");
+		int sortBy = (int) map.get("sortBy");
+		
+		if(sortBy ==0) {
+			Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("name"));
+			Specification<Product> spec = ProductSpec.clientSearch(name, priceFrom, priceTo, manufacturerId, categoryId);
+			return productRepository.findAll(spec, pageable);
+		} else {
+			Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "id"));
+			Specification<Product> spec = ProductSpec.clientSearch(name, priceFrom, priceTo, manufacturerId, categoryId);
+			return productRepository.findAll(spec, pageable);
+		}
+	}
+
 }

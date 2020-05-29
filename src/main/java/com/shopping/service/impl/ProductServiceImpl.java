@@ -30,6 +30,7 @@ import com.shopping.dao.IAttributeDAO;
 import com.shopping.dao.IProductAttributeDAO;
 import com.shopping.dao.IProductDAO;
 import com.shopping.dao.IProductImageDAO;
+import com.shopping.dto.ClientProductDTO;
 import com.shopping.dto.ProductDTO;
 import com.shopping.dto.ProductDetailDTO;
 import com.shopping.entity.Attribute;
@@ -259,6 +260,21 @@ public class ProductServiceImpl implements IProductService {
 			productDTO.getProductImageSet().removeIf(productImage -> productImage.getDisplayOrder()>4);
 		}
 		return new ResponseModel<ProductDetailDTO>(productDTO, HttpStatus.OK, "Get Success");
+	}
+
+	@Override
+	public ResponseModel<PageModel<ClientProductDTO>> clientFindAll(int pageNumber, int pageSize, Map<String, Object> map) {
+		// TODO Auto-generated method stub
+//		int sortBy = (int) map.get("sortBy");
+//		System.out.println(sortBy);
+		Page<Product> page = productDAO.clientPage(pageNumber, pageSize, map);
+		PageModel<Product> pageModel = new PageModel<Product>(page.getContent(), pageNumber, page.getTotalPages());
+		ModelMapper modelMapper = new ModelMapper();
+		List<ClientProductDTO> list = Arrays.asList(modelMapper.map(page.getContent(), ClientProductDTO[].class));
+		PageModel<ClientProductDTO> pagemodel2 = new PageModel<ClientProductDTO>(list, pageNumber, page.getTotalPages());
+		
+		
+		return new ResponseModel<PageModel<ClientProductDTO>>(pagemodel2, HttpStatus.OK, "All products");
 	}
 
 }

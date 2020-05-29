@@ -11,4 +11,14 @@ public interface ICategoryDAO extends GenericDAO<Category, Integer>{
 	List<Category> getAllCategories();
 	
 	List<Category> recusiveCategory();
+	
+	List<Category> getAllCategoriesNotHaveParent();
+	
+	Category findById(int id);
+	
+	boolean isNameExist(String name);
+	
+	boolean isUrlExist(String url);
+	
+	int isCategoryHaveChild(int id);
 }
