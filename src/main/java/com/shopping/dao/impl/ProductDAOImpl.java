@@ -102,6 +102,33 @@ public class ProductDAOImpl implements IProductDAO {
 	}
 
 	@Override
+	public Page<Product> clientPage(int pageNumber, int pageSize, Map<String, Object> map, int initCategoryId) {
+		// TODO Auto-generated method stub
+		String name = (String) map.get("name");
+		int priceFrom = (int) map.get("priceFrom");
+		int priceTo = (int) map.get("priceTo");
+		int manufacturerId = (int) map.get("manufacturerId");
+		int categoryId = (int) map.get("categoryId");
+		int sortBy = (int) map.get("sortBy");
+		
+		if(sortBy ==0) {
+			Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("name"));
+			Specification<Product> spec = ProductSpec.clientSearch(name, priceFrom, priceTo, manufacturerId, categoryId, initCategoryId);
+			return productRepository.findAll(spec, pageable);
+		} else {
+			Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "id"));
+			Specification<Product> spec = ProductSpec.clientSearch(name, priceFrom, priceTo, manufacturerId, categoryId, initCategoryId);
+			return productRepository.findAll(spec, pageable);
+		}
+	}
+
+	@Override
+	public List<Product> findAllByParentCategory(int categoryId) {
+		// TODO Auto-generated method stub
+		return productRepository.findAllByParentCategory(categoryId);
+	}
+
+	@Override
 	public Page<Product> clientPage(int pageNumber, int pageSize, Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		String name = (String) map.get("name");
@@ -113,19 +140,13 @@ public class ProductDAOImpl implements IProductDAO {
 		
 		if(sortBy ==0) {
 			Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("name"));
-			Specification<Product> spec = ProductSpec.clientSearch(name, priceFrom, priceTo, manufacturerId, categoryId);
+			Specification<Product> spec = ProductSpec.clientSearchPage(name, priceFrom, priceTo, manufacturerId, categoryId);
 			return productRepository.findAll(spec, pageable);
 		} else {
 			Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "id"));
-			Specification<Product> spec = ProductSpec.clientSearch(name, priceFrom, priceTo, manufacturerId, categoryId);
+			Specification<Product> spec = ProductSpec.clientSearchPage(name, priceFrom, priceTo, manufacturerId, categoryId);
 			return productRepository.findAll(spec, pageable);
 		}
-	}
-
-	@Override
-	public List<Product> findAllByParentCategory(int categoryId) {
-		// TODO Auto-generated method stub
-		return productRepository.findAllByParentCategory(categoryId);
 	}
 
 }

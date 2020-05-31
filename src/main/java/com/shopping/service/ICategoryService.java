@@ -35,4 +35,6 @@ public interface ICategoryService {
 	ResponseModel<Integer> isCategoryHaveChild(int id);
 	
 	ResponseModel<ClientCategoryPageDTO> clientAllManufacturerBelongCategory(String url);
+	
+//	ResponseModel<ClientCategoryPageDTO> clientAllCategoriesAndManufacturer();
 }

@@ -21,6 +21,8 @@ public interface IProductService {
 	
 	ResponseModel<PageModel<ClientProductDTO>> clientFindAll(int pageNumber, int pageSize, Map<String, Object> map);
 	
+	ResponseModel<PageModel<ClientProductDTO>> clientFindByCategoryId(int pageNumber, int pageSize, Map<String, Object> map, int categoryId);
+	
 	ResponseModel<Product> findById(int productId);
 	
 	ResponseModel<PageModel<Product>> getAll();

@@ -11,6 +11,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,9 +37,36 @@ public class Promotion {
 	
 	@Column(name = "start_date")
 	@Temporal(TemporalType.DATE)
+	@Getter(value = AccessLevel.NONE)
 	private Date startDate;
 	
 	@Column(name = "end_date")
 	@Temporal(TemporalType.DATE)
+	@Getter(value = AccessLevel.NONE)
 	private Date endDate;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Ho_Chi_Minh")
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Ho_Chi_Minh")
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	@Column(name = "discount_percent")
+	private String discountPercent;
+	
+	@Column(name = "discount_number")
+	private String discountNumber;
+	
+	@Column(name = "type")
+	private String type;
+	
+	@Column(name = "type_id")
+	private int typeId;
+	
+	@Column(name = "image")
+	private String image;
 }

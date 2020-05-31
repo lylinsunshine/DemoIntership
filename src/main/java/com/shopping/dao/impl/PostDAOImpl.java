@@ -1,5 +1,7 @@
 package com.shopping.dao.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
@@ -28,8 +30,9 @@ public class PostDAOImpl implements IPostDAO {
 		postRepository.delete(entity);
 	}
 
+
 	@Override
-	public Page<Post> page(int pageNumber, int pageSize) {
+	public Page<Post> page(int pageNumber, int pageSize, Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return null;
 	}

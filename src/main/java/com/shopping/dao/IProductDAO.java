@@ -28,5 +28,7 @@ public interface IProductDAO extends GenericDAO<Product, Integer>{
 	
 	Page<Product> clientPage(int pageNumber, int pageSize, Map<String, Object> map);
 	
+	Page<Product> clientPage(int pageNumber, int pageSize, Map<String, Object> map, int initCategoryId);
+	
 	List<Product> findAllByParentCategory(int categoryId);
 }

@@ -13,6 +13,7 @@ public class ClientProductDTO {
 	private int id;
 	private String name;
 	private Double price;
+	private Double newPrice;
 	private String image;
 	private String url;
 }

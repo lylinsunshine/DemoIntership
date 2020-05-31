@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.DynamicUpdate;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -93,4 +91,8 @@ public class Product {
 	@JsonIgnore
 	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY)
 	private Set<Wishlist> wishlistSet;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY)
+	private Set<PromotionProduct> promotionProductSet;
 }
