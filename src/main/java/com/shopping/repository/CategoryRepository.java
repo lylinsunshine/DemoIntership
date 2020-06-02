@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.shopping.dto.TotalProductPerCategorChartDTO;
 import com.shopping.entity.Category;
 
 @Repository("categoryRepository")
@@ -29,4 +30,11 @@ public interface CategoryRepository extends JpaRepository<Category, Integer>, Jp
 	List<Category> findAllSubCategory(int id);
 	
 	Category findByUrl(String url);
+	
+	@Query(value = "SELECT COUNT(category_id) FROM category ", nativeQuery = true)
+	int getTotalCategory();
+	
+	@Query(value = "SELECT category.`name` as name, count(product_id) as total FROM category INNER JOIN product ON product.category_id = category.category_id GROUP BY category.`name`, category.category_id ORDER BY name asc", nativeQuery = true)
+	List<TotalProductPerCategorChartDTO> getTotalProduct();
+	
 }

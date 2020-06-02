@@ -27,9 +27,9 @@ public class ClientUserController {
 	@Autowired
 	private IUserService userService;
 	
-	@GetMapping("/{username}")
-	public ResponseModel<ClientUserInfoDTO> getUserInfo(@PathVariable String username) {
-		return userService.getUserInfo(username);
+	@PostMapping("/get-user-info")
+	public ResponseModel<ClientUserInfoDTO> getUserInfo(@RequestBody LoginRequestDTO info) {
+		return userService.getUserInfo(info.getUsername());
 	}
 	
 	

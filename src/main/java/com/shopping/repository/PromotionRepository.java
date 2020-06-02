@@ -15,4 +15,6 @@ public interface PromotionRepository extends JpaRepository<Promotion, Integer>, 
 	@Query(value = "SELECT * FROM `promotion` WHERE start_date<=CURDATE() and end_date>CURDATE()", nativeQuery = true)
 	Promotion getCurrentPromotion();
 	
+	@Query(value = "select * from promotion ORDER BY promotion_id DESC LIMIT 1;", nativeQuery = true)
+	Promotion getLastestPromotion();
 }

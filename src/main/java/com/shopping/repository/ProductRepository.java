@@ -31,4 +31,28 @@ public interface ProductRepository extends JpaRepository<Product, Integer>, JpaS
 	 
 	 @Query(value = "SELECT * FROM product WHERE product_id IN (SELECT product_id FROM promotion_product WHERE promotion_id = ?1)", nativeQuery = true)
 	 List<Product> findByPromotionId(int promotionId);
+	 
+	 @Query(value = "select Count(product_id) from product", nativeQuery = true)
+	 int getTotalProduct();
+	 
+	 @Query(value = "SELECT * from product where product.product_id in (\r\n" + 
+	 		"select product_id from (\r\n" + 
+	 		"select product_id, sum(quantity) as total\r\n" + 
+	 		"from order_detail\r\n" + 
+	 		"group by product_id\r\n" + 
+	 		"order by total desc limit 11\r\n" + 
+	 		") as T)", nativeQuery = true)
+	 List<Product> getTopProduct();
+	 
+	 @Query(value = "SELECT * from product where product.product_id ORDER BY product_id desc limit 8", nativeQuery = true)
+	List<Product> getLastestProduct();
+	 
+	 @Query(value = "SELECT * FROM product\r\n" + 
+	 		"where product_id in \r\n" + 
+	 		"(\r\n" + 
+	 		"select product_id from promotion_product where promotion_id = ?1\r\n" + 
+	 		")\r\n" + 
+	 		"ORDER BY RAND()\r\n" + 
+	 		"LIMIT 3;", nativeQuery = true)
+		List<Product> getRandomProduct(int promotionId);
 }
