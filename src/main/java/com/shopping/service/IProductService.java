@@ -54,6 +54,8 @@ public interface IProductService {
 	ResponseModel<List<ProductAttribute>> insertOrUpdateAttribue(ProductAttribute productAttribute);
 	
 	ResponseModel<ProductDetailDTO> getProductInfo(String url);
+
+	ResponseModel<List<ProductDetailDTO>> getRelatedProduct(int productId);
 	
 
 }

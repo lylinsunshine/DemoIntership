@@ -14,6 +14,7 @@ public class ClientProductDTO {
 	private String name;
 	private Double price;
 	private Double newPrice;
+	private Double rating;
 	private String image;
 	private String url;
 }

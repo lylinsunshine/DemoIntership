@@ -14,6 +14,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,14 +33,10 @@ public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "review_id")
-	private int reviewId;
+	private int id;
 		
 	@Column(name = "content")
 	private String content;
-	
-	@Column(name = "date")
-	@Temporal(TemporalType.DATE)
-	private Date date;
 	
 	@Column(name = "is_approved")
 	private boolean isApproved;

@@ -42,6 +42,9 @@ public class Product {
 	@Column(name = "image")
 	private String image;
 	
+	@Column(name = "rating")
+	private Double rating;
+	
 	@Column(name = "sku", unique = true)
 	private String sku;
 	

@@ -20,6 +20,7 @@ public class ProductDetailDTO {
 	private int id;
 	private String name;
 	private Double price;
+	private Double rating;
 	private String image;
 	private String sku;
 	private String shortDescription;

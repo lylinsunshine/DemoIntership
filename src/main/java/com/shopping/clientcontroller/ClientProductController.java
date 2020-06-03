@@ -84,4 +84,9 @@ public class ClientProductController {
 //		return categoryService.clientAllCategoriesAndManufacturer();
 //	}
 	
+	@GetMapping("/related-product/{productId}")
+	public ResponseModel<List<ProductDetailDTO>> getRelatedProduct(@PathVariable int productId){
+		return productService.getRelatedProduct(productId);
+	}
+	
 }

@@ -371,4 +371,10 @@ public class ProductServiceImpl implements IProductService {
 		return new ResponseModel<PageModel<ClientProductDTO>>(pagemodel2, HttpStatus.OK, "All products");
 	}
 
+	@Override
+	public ResponseModel<List<ProductDetailDTO>> getRelatedProduct(int productId) {
+		// TODO Auto-generated method stub
+		return new ResponseModel<List<ProductDetailDTO>>(list, HttpStatus.OK, "All products");;
+	}
+
 }
