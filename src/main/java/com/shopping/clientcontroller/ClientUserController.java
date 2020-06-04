@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shopping.dto.ClientUserInfoDTO;
 import com.shopping.dto.LoginRequestDTO;
+import com.shopping.dto.RegisterRequestDTO;
 import com.shopping.entity.Address;
 import com.shopping.entity.User;
+import com.shopping.entity.Wishlist;
 import com.shopping.service.IUserService;
 import com.shopping.util.ResponseModel;
 
@@ -32,10 +34,20 @@ public class ClientUserController {
 		return userService.getUserInfo(info.getUsername());
 	}
 	
+	@PostMapping("/checkusername")
+	public ResponseModel<Boolean> isUserNameExist(@RequestBody LoginRequestDTO user) {
+		return userService.isUserNameExist(user.getUsername());
+	}
+	
 	
 	@PostMapping("/login")
 	public ResponseModel<String> login(@RequestBody LoginRequestDTO user) {
 		return userService.login(user);
+	}
+	
+	@PostMapping("/register")
+	public ResponseModel<String> register(@RequestBody RegisterRequestDTO user) {
+		return userService.register(user);
 	}
 	
 	@PostMapping("/address")
@@ -51,6 +63,21 @@ public class ClientUserController {
 	@PostMapping("/info")
 	public ResponseModel<ClientUserInfoDTO> updateUserInfo(@RequestBody User user) {
 		return userService.updateUserInfo(user);
+	}
+	
+	@PostMapping("/add-wishlist")
+	public ResponseModel<Wishlist> addWishlist(@RequestBody Wishlist wishlist) {
+		return userService.addWishlist(wishlist);
+	}
+	
+	@PostMapping("/get-wishlist")
+	public ResponseModel<List<Wishlist>> getUserWishlist(@RequestBody LoginRequestDTO u) {
+		return userService.getWishlist(u.getUsername());
+	}
+	
+	@GetMapping("/delete-wishlist/{wishlistId}")
+	public ResponseModel<Wishlist> deleteWishlist(@PathVariable int wishlistId) {
+		return userService.deleteWishlist(wishlistId);
 	}
 	
 }

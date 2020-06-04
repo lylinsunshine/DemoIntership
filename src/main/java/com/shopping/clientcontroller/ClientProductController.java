@@ -85,7 +85,7 @@ public class ClientProductController {
 //	}
 	
 	@GetMapping("/related-product/{productId}")
-	public ResponseModel<List<ProductDetailDTO>> getRelatedProduct(@PathVariable int productId){
+	public ResponseModel<List<ClientProductDTO>> getRelatedProduct(@PathVariable int productId){
 		return productService.getRelatedProduct(productId);
 	}
 	

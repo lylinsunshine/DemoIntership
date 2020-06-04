@@ -9,4 +9,8 @@ public interface IAttributeService {
 	
 	List<Attribute> getAllAttributes();
 
+	List<Attribute> addAttribute(Attribute attribute);
+	
+	ResponseModel<Boolean> isNameExist(String name);
+
 }

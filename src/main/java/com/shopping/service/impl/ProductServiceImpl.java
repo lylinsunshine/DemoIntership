@@ -372,9 +372,31 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public ResponseModel<List<ProductDetailDTO>> getRelatedProduct(int productId) {
+	public ResponseModel<List<ClientProductDTO>> getRelatedProduct(int productId) {
 		// TODO Auto-generated method stub
-		return new ResponseModel<List<ProductDetailDTO>>(list, HttpStatus.OK, "All products");;
+		List<Product> l = productRepository.getRelatedProduct(productId);
+		List<ClientProductDTO> list = Arrays.asList(modelMapper.map(l, ClientProductDTO[].class));
+		Promotion p = promotionRepository.getCurrentPromotion();
+		// System.out.println(p);
+		List<Product> l2 = productRepository.findByPromotionId(p.getId());
+		for (Product product : l2) {
+			for (ClientProductDTO item : list) {
+				if (item.getId() == product.getId()) {
+					if (p.getDiscountNumber() != null && !p.getDiscountNumber().equals("")) {
+						Double temp = item.getPrice() - Double.parseDouble(p.getDiscountNumber());
+						if (temp >= 0) {
+							item.setNewPrice(temp);
+						}
+					}
+					if (p.getDiscountPercent() != null && !p.getDiscountPercent().equals("")) {
+						Double temp = item.getPrice()
+								- Math.ceil(item.getPrice() * Integer.parseInt(p.getDiscountPercent()) / 100);
+						item.setNewPrice(temp);
+					}
+				}
+			}
+		}
+		return new ResponseModel<List<ClientProductDTO>>(list, HttpStatus.OK, "All products");
 	}
 
 }

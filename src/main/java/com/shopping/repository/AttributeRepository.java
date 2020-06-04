@@ -7,5 +7,5 @@ import com.shopping.entity.Attribute;
 
 @Repository("attributeRepository")
 public interface AttributeRepository extends JpaRepository<Attribute, Integer>{
-
+	 boolean existsByName(String name);
 }

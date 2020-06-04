@@ -55,7 +55,7 @@ public interface IProductService {
 	
 	ResponseModel<ProductDetailDTO> getProductInfo(String url);
 
-	ResponseModel<List<ProductDetailDTO>> getRelatedProduct(int productId);
+	ResponseModel<List<ClientProductDTO>> getRelatedProduct(int productId);
 	
 
 }

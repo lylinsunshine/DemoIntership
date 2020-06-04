@@ -55,4 +55,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer>, JpaS
 	 		"ORDER BY RAND()\r\n" + 
 	 		"LIMIT 3;", nativeQuery = true)
 		List<Product> getRandomProduct(int promotionId);
+	 
+	 @Query(value = "select * from product where category_id in (\r\n" + 
+	 		"	select category_id from product WHERE product_id = 1\r\n" + 
+	 		") ORDER BY RAND()\r\n" + 
+	 		"LIMIT 3;", nativeQuery = true)
+	 List<Product> getRelatedProduct(int productId);
 }

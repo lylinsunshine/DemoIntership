@@ -12,8 +12,12 @@ import com.shopping.dao.IAddressDAO;
 import com.shopping.dao.IUserDAO;
 import com.shopping.dto.ClientUserInfoDTO;
 import com.shopping.dto.LoginRequestDTO;
+import com.shopping.dto.RegisterRequestDTO;
 import com.shopping.entity.Address;
 import com.shopping.entity.User;
+import com.shopping.entity.Wishlist;
+import com.shopping.repository.UserRepository;
+import com.shopping.repository.WishlistRepository;
 import com.shopping.service.IUserService;
 import com.shopping.util.ResponseModel;
 
@@ -25,7 +29,13 @@ public class UserServiceImpl implements IUserService {
 	private IUserDAO userDAO;
 	
 	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
 	private IAddressDAO addressDAO; 
+	
+	@Autowired
+	private WishlistRepository wishlistRepository;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -40,12 +50,6 @@ public class UserServiceImpl implements IUserService {
 				token = user.getUsername();
 		}
 		return new ResponseModel<String>(token, HttpStatus.OK, "Login Response");
-	}
-
-	@Override
-	public ResponseModel<Boolean> register() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -90,6 +94,46 @@ public class UserServiceImpl implements IUserService {
 		
 		return new ResponseModel<ClientUserInfoDTO>(null, HttpStatus.OK, "Update Success");
 
+	}
+
+	@Override
+	public ResponseModel<String> register(RegisterRequestDTO user) {
+		// TODO Auto-generated method stub
+		User u = new User();
+		u.setUsername(user.getUsername());
+		u.setRole(user.getRole());
+		u.setPassword(user.getPassword());
+		u.setPhoneNumber(user.getPhoneNumber());
+		u.setName(user.getName());
+		userRepository.save(u);
+		return new ResponseModel<String>("SUCCESS", HttpStatus.OK, "Register Success");
+	}
+
+	@Override
+	public ResponseModel<Boolean> isUserNameExist(String name) {
+		// TODO Auto-generated method stub
+		return new ResponseModel<Boolean>(userRepository.existsByUsername(name), HttpStatus.OK, "isUserNameExist");
+	}
+
+	@Override
+	public ResponseModel<Wishlist> addWishlist(Wishlist wishlist) {
+		// TODO Auto-generated method stub
+		wishlistRepository.save(wishlist);
+		return new ResponseModel<Wishlist>(null, HttpStatus.OK, "Add Success");
+	}
+
+	@Override
+	public ResponseModel<List<Wishlist>> getWishlist(String username) {
+		// TODO Auto-generated method stub
+		List<Wishlist> list = wishlistRepository.getWishLisByUsername(username);
+		return new ResponseModel<List<Wishlist>>(list, HttpStatus.OK, "Get Success");
+	}
+
+	@Override
+	public ResponseModel<Wishlist> deleteWishlist(int wishlistId) {
+		// TODO Auto-generated method stub
+		wishlistRepository.deleteById(wishlistId);
+		return new ResponseModel<Wishlist>(null, HttpStatus.OK, "Delete Success");
 	}
 
 }

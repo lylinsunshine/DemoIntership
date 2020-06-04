@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.shopping.dao.IAttributeDAO;
 import com.shopping.entity.Attribute;
+import com.shopping.repository.AttributeRepository;
 import com.shopping.service.IAttributeService;
 import com.shopping.util.ResponseModel;
 
@@ -18,11 +19,27 @@ public class AttributeServiceImpl implements IAttributeService {
 	
 	@Autowired
 	private IAttributeDAO attributeDAO;
+	
+	@Autowired
+	private AttributeRepository attributeRepository;
 
 	@Override
 	public List<Attribute> getAllAttributes() {
 		// TODO Auto-generated method stub 
 		return attributeDAO.getAllAttributes();
+	}
+
+	@Override
+	public List<Attribute> addAttribute(Attribute attribute) {
+		// TODO Auto-generated method stub
+		attributeDAO.insertOrUpdate(attribute);		
+		return attributeDAO.getAllAttributes();
+	}
+
+	@Override
+	public ResponseModel<Boolean> isNameExist(String name) {
+		// TODO Auto-generated method stub
+		return new ResponseModel<Boolean>(attributeRepository.existsByName(name), HttpStatus.OK, "isNameExist");
 	}
 
 }

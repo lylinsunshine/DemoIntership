@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +41,7 @@ public class AttributeDAOImpl implements IAttributeDAO {
 	@Override
 	public List<Attribute> getAllAttributes() {
 		// TODO Auto-generated method stub
-		return attributeRepository.findAll();
+		return attributeRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
 	}
 
 	@Override
