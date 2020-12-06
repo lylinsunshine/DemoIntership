@@ -23,37 +23,31 @@ public class ProductImageImpl implements IProductImageDAO{
 	
 	@Override
 	public void insertOrUpdate(ProductImage entity) {
-		// TODO Auto-generated method stub
 		productImageRepository.save(entity);
 	}
 
 	@Override
 	public void delete(ProductImage entity) {
-		// TODO Auto-generated method stub
 		productImageRepository.delete(entity);
 	}
 
 	@Override
 	public Page<ProductImage> page(int pageNumber, int pageSize, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Optional<ProductImage> findById(int productImageId) {
-		// TODO Auto-generated method stub
 		return productImageRepository.findById(productImageId);
 	}
 
 	@Override
 	public List<ProductImage> findListAfterDelete(int displayOrder, int productId) {
-		// TODO Auto-generated method stub
 		return productImageRepository.findListAfterDelete(displayOrder, productId);
 	}
 
 	@Override
 	public List<ProductImage> findByProductId(int productId) {
-		// TODO Auto-generated method stub
 		return productImageRepository.findByProductId(productId);
 	}
 

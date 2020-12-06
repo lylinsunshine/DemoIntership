@@ -20,7 +20,6 @@ public class UserDetailsServiceImpl implements IUserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
 		User user =  userDAO.findByUsername(username);		
 		UserBuilder builder = null;
 		if (user != null) {
@@ -36,7 +35,6 @@ public class UserDetailsServiceImpl implements IUserDetailsService {
 
 	@Override
 	public String login(String username, String password) {
-		// TODO Auto-generated method stub
 		User user =  userDAO.findByUsernameAndPassword(username, password);
 		if (user != null) {
 			return user.getUsername();

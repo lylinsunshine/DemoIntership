@@ -20,19 +20,16 @@ public class PromotionProductDAOImpl implements IPromotionProductDAO {
 
 	@Override
 	public void insertOrUpdate(PromotionProduct entity) {
-		// TODO Auto-generated method stub
 		promotionProductRepository.save(entity);
 	}
 
 	@Override
 	public void delete(PromotionProduct entity) {
-		// TODO Auto-generated method stub
 		promotionProductRepository.delete(entity);
 	}
 
 	@Override
 	public Page<PromotionProduct> page(int pageNumber, int pageSize, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

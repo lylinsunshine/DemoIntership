@@ -35,12 +35,11 @@ public class OrderServiceImpl implements IOrderService {
 	@Autowired
 	private IProductDAO productDAO;
 	
-	@Autowired
-	private ModelMapper modelMapper;
+	// @Autowired
+	// private ModelMapper modelMapper;
 
 	@Override
 	public ResponseModel<Integer> addOrder(Order order) {
-		// TODO Auto-generated method stub
 		Date date = new Date();
 		order.setDate(date);
 		Order o = orderDAO.addOrder(order);	
@@ -55,13 +54,11 @@ public class OrderServiceImpl implements IOrderService {
 			}
 			orderDetailDAO.insertOrUpdate(orderDetail);
 		}
-		// TODO Auto-generated method stub
 		return new ResponseModel<Boolean>(true, HttpStatus.OK, "Insert Success");
 	}
 
 	@Override
 	public ResponseModel<Boolean> updateOrderPaymentStatusSuccess(int id) {
-		// TODO Auto-generated method stub
 		Order order = orderDAO.findById(id);
 		if(order.getPaymentMethod().equals("MOMO") && order.getPaymentStatus().equals("PENDING")) {
 			order.setPaymentStatus("SUCCESS");
@@ -74,7 +71,6 @@ public class OrderServiceImpl implements IOrderService {
 	
 	@Override
 	public ResponseModel<Boolean> updateOrderPaymentStatusFail(int id) {
-		// TODO Auto-generated method stub
 		Order order = orderDAO.findById(id);
 		if(order.getPaymentMethod().equals("MOMO") && order.getPaymentStatus().equals("PENDING")) {
 			order.setPaymentStatus("FAIL");
@@ -88,7 +84,6 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Override
 	public ResponseModel<List<Order>> getAllOrdersByUsername(String username) {
-		// TODO Auto-generated method stub
 		List<Order> list = orderDAO.findAllByUsername(username);
 		for (Order order : list) {
 			order.setTotalPrice(orderDetailDAO.getTotalPriceByOrderId(order.getId()));
@@ -98,8 +93,8 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Override
 	public ResponseModel<List<OrderDetail>> getOrderInformation(int orderId) {
-		// TODO Auto-generated method stub
 		List<OrderDetail> list = orderDetailDAO.findAllByOrderId(orderId);
+		ModelMapper modelMapper = new ModelMapper();
 		for (OrderDetail orderDetail : list) {
 			Product p = productDAO.findById(orderDetail.getProductEntity().getId()).get();			
 			ClientOrderProductInfoDTO productInfo = modelMapper.map(p, ClientOrderProductInfoDTO.class);
@@ -110,7 +105,6 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Override
 	public ResponseModel<PageModel<Order>> findAll(int pageNumber, int pageSize, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		Page<Order> page = orderDAO.page(pageNumber, pageSize, map);
 		List<Order> list = page.getContent();
 		for (Order order : list) {
@@ -123,7 +117,6 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Override
 	public ResponseModel<Order> confirmPayment(int orderId) {
-		// TODO Auto-generated method stub
 		Order order = orderDAO.findById(orderId);
 		order.setDeliveryStatus("COMPLETED");
 		order.setPaymentStatus("SUCCESS");
@@ -132,7 +125,6 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Override
 	public ResponseModel<Order> cancelOrder(int orderId) {
-		// TODO Auto-generated method stub
 		Order order = orderDAO.findById(orderId);
 		order.setDeliveryStatus("CANCELLED");
 		if(order.getPaymentMethod().equals("COD")) {

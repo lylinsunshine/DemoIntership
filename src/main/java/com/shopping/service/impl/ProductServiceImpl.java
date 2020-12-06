@@ -1,21 +1,15 @@
 package com.shopping.service.impl;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.apache.commons.io.FilenameUtils;
 import org.modelmapper.ModelMapper;
@@ -28,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shopping.dao.IAttributeDAO;
-import com.shopping.dao.ICategoryDAO;
+//import com.shopping.dao.ICategoryDAO;
 import com.shopping.dao.IProductAttributeDAO;
 import com.shopping.dao.IProductDAO;
 import com.shopping.dao.IProductImageDAO;
@@ -36,17 +30,13 @@ import com.shopping.dto.ClientProductDTO;
 import com.shopping.dto.ProductDTO;
 import com.shopping.dto.ProductDetailDTO;
 import com.shopping.entity.Attribute;
-import com.shopping.entity.Category;
-import com.shopping.entity.Manufacturer;
 import com.shopping.entity.Product;
 import com.shopping.entity.ProductAttribute;
 import com.shopping.entity.ProductImage;
 import com.shopping.entity.Promotion;
 import com.shopping.repository.ProductRepository;
 import com.shopping.repository.PromotionRepository;
-import com.shopping.service.ICategoryService;
 import com.shopping.service.IProductService;
-import com.shopping.util.Constants;
 import com.shopping.util.PageModel;
 import com.shopping.util.ResponseModel;
 
@@ -67,9 +57,6 @@ public class ProductServiceImpl implements IProductService {
 	private IAttributeDAO attributeDAO;
 
 	@Autowired
-	private ICategoryDAO categoryDAO;
-
-	@Autowired
 	private PromotionRepository promotionRepository;
 
 	@Autowired
@@ -80,7 +67,6 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseModel<Product> findById(int productId) {
-		// TODO Auto-generated method stub
 		Optional<Product> product = productDAO.findById(productId);
 		if (product.isPresent())
 			return new ResponseModel<Product>(product.get(), HttpStatus.OK, "Get OK");
@@ -90,7 +76,6 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseModel<Product> add(Product product) {
-		// TODO Auto-generated method stub
 		String nameWithoutSpecialCharacter = product.getName().replaceAll("[^a-zA-Z0-9\\s+]", "");
 		String nameWithoutUnecesarySpace = nameWithoutSpecialCharacter.trim().replaceAll(" +", " ");
 		String url = nameWithoutUnecesarySpace.replace(' ', '-').toLowerCase();
@@ -107,7 +92,6 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseModel<Product> update(Product product) {
-		// TODO Auto-generated method stub
 		ModelMapper modelMapper2 = new ModelMapper();
 		modelMapper2.getConfiguration().setSkipNullEnabled(true).setMatchingStrategy(MatchingStrategies.STRICT);
 
@@ -120,9 +104,8 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseModel<PageModel<ProductDTO>> findAll(int pageNumber, int pageSize, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		Page<Product> page = productDAO.page(pageNumber, pageSize, map);
-		PageModel<Product> pageModel = new PageModel<Product>(page.getContent(), pageNumber, page.getTotalPages());
+		//PageModel<Product> pageModel = new PageModel<Product>(page.getContent(), pageNumber, page.getTotalPages());
 		ModelMapper modelMapper = new ModelMapper();
 		List<ProductDTO> list = Arrays.asList(modelMapper.map(page.getContent(), ProductDTO[].class));
 		PageModel<ProductDTO> pagemodel2 = new PageModel<ProductDTO>(list, pageNumber, page.getTotalPages());
@@ -132,7 +115,6 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseModel<PageModel<Product>> getAll() {
-		// TODO Auto-generated method stub
 		PageModel<Product> pageModel = new PageModel<Product>(productDAO.getAllProduct(), 1, 0);
 		return new ResponseModel<PageModel<Product>>(pageModel, HttpStatus.OK, "All products");
 	}
@@ -141,7 +123,6 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public String storeFile(MultipartFile file) throws IOException {
-		// TODO Auto-generated method stub
 		String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 		String fileName = UUID.randomUUID().toString() + "." + extension;
 		System.out.println(file.getOriginalFilename());
@@ -152,35 +133,30 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseModel<Product> deleteById(int manufacturerId) {
-		// TODO Auto-generated method stub
 		productDAO.deleteById(manufacturerId);
 		return new ResponseModel<Product>(null, HttpStatus.OK, "Delete Product Successful");
 	}
 
 	@Override
 	public ResponseModel<Boolean> isNameExist(String name) {
-		// TODO Auto-generated method stub
 		boolean isNameExist = productDAO.isNameExist(name);
 		return new ResponseModel<Boolean>(isNameExist, HttpStatus.OK, "isNameExist");
 	}
 
 	@Override
 	public ResponseModel<Boolean> isSkuExist(String sku) {
-		// TODO Auto-generated method stub
 		boolean isSkuExist = productDAO.isSkuExist(sku);
-		return new ResponseModel<Boolean>(isSkuExist, HttpStatus.OK, "isNameExist");
+		return new ResponseModel<Boolean>(isSkuExist, HttpStatus.OK, "isSkuExist");
 	}
 
 	@Override
 	public ResponseModel<Boolean> isUrlExist(String url) {
-		// TODO Auto-generated method stub
 		boolean isUrlExist = productDAO.isUrlExist(url);
-		return new ResponseModel<Boolean>(isUrlExist, HttpStatus.OK, "isNameExist");
+		return new ResponseModel<Boolean>(isUrlExist, HttpStatus.OK, "isUrlExist");
 	}
 
 	@Override
 	public ResponseModel<Product> updateDisplayOrder(int imageId1, int imageId2) {
-		// TODO Auto-generated method stub
 		ProductImage image1 = productImageDAO.findById(imageId1).get();
 		ProductImage image2 = productImageDAO.findById(imageId2).get();
 
@@ -194,7 +170,6 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseModel<List<ProductImage>> deleteProductImage(int imageId) {
-		// TODO Auto-generated method stub
 		ProductImage image = productImageDAO.findById(imageId).get();
 		int productId = image.getProductEntity().getId();
 		int displayOrder = image.getDisplayOrder();
@@ -214,8 +189,6 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseModel<List<ProductImage>> addProductImage(ProductImage productImage) {
-		// TODO Auto-generated method stub
-		// System.out.println(productImage.getProductEntity().getId());
 		productImageDAO.insertOrUpdate(productImage);
 		List<ProductImage> listImage = productImageDAO.findByProductId(productImage.getProductEntity().getId());
 		return new ResponseModel<List<ProductImage>>(listImage, HttpStatus.OK, "Add Image Success");
@@ -223,7 +196,6 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseModel<List<ProductAttribute>> deleteProductAttribute(int productAttributeId) {
-		// TODO Auto-generated method stub
 		int productId = productAttributeDAO.findById(productAttributeId).get().getProductEntity().getId();
 		productAttributeDAO.deleteById(productAttributeId);
 		List<ProductAttribute> list = productAttributeDAO.findByProductId(productId);
@@ -232,14 +204,12 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseModel<Boolean> isValueExist(String value, int productId) {
-		// TODO Auto-generated method stub
 		boolean isValueExist = productAttributeDAO.isValueExist(value, productId);
 		return new ResponseModel<Boolean>(isValueExist, HttpStatus.OK, "isValueExist");
 	}
 
 	@Override
 	public ResponseModel<List<ProductAttribute>> insertOrUpdateAttribue(ProductAttribute productAttribute) {
-		// TODO Auto-generated method stub
 		ModelMapper modelMapper2 = new ModelMapper();
 		modelMapper2.getConfiguration().setSkipNullEnabled(true).setMatchingStrategy(MatchingStrategies.STRICT);
 
@@ -257,7 +227,6 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseModel<ProductDetailDTO> getProductInfo(String url) {
-		// TODO Auto-generated method stub
 		Product product = productDAO.findByUrl(url);
 		ProductDetailDTO productDTO = modelMapper.map(product, ProductDetailDTO.class);
 		if (productDTO.getProductAttributeSet() != null) {
@@ -276,7 +245,6 @@ public class ProductServiceImpl implements IProductService {
 		}
 
 		Promotion p = promotionRepository.getCurrentPromotion();
-		// System.out.println(p);
 		List<Product> l2 = productRepository.findByPromotionId(p.getId());
 		for (Product productList : l2) {
 			if (productDTO.getId() == productList.getId()) {
@@ -302,15 +270,13 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public ResponseModel<PageModel<ClientProductDTO>> clientFindAll(int pageNumber, int pageSize,
 			Map<String, Object> map) {
-		// TODO Auto-generated method stub
 
 		Page<Product> page = productDAO.clientPage(pageNumber, pageSize, map);
-		PageModel<Product> pageModel = new PageModel<Product>(page.getContent(), pageNumber, page.getTotalPages());
+		//PageModel<Product> pageModel = new PageModel<Product>(page.getContent(), pageNumber, page.getTotalPages());
 		ModelMapper modelMapper = new ModelMapper();
 		List<ClientProductDTO> list = Arrays.asList(modelMapper.map(page.getContent(), ClientProductDTO[].class));
 
 		Promotion p = promotionRepository.getCurrentPromotion();
-		// System.out.println(p);
 		List<Product> l2 = productRepository.findByPromotionId(p.getId());
 		for (Product product : l2) {
 			for (ClientProductDTO item : list) {
@@ -338,7 +304,6 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public ResponseModel<PageModel<ClientProductDTO>> clientFindByCategoryId(int pageNumber, int pageSize,
 			Map<String, Object> map, int initCategoryId) {
-		// TODO Auto-generated method stub
 		Page<Product> page = productDAO.clientPage(pageNumber, pageSize, map, initCategoryId);
 		List<Product> l = new ArrayList<Product>(page.getContent());
 
@@ -346,7 +311,6 @@ public class ProductServiceImpl implements IProductService {
 		List<ClientProductDTO> list = Arrays.asList(modelMapper.map(l, ClientProductDTO[].class));
 
 		Promotion p = promotionRepository.getCurrentPromotion();
-		// System.out.println(p);
 		List<Product> l2 = productRepository.findByPromotionId(p.getId());
 		for (Product product : l2) {
 			for (ClientProductDTO item : list) {
@@ -373,11 +337,9 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseModel<List<ClientProductDTO>> getRelatedProduct(int productId) {
-		// TODO Auto-generated method stub
 		List<Product> l = productRepository.getRelatedProduct(productId);
 		List<ClientProductDTO> list = Arrays.asList(modelMapper.map(l, ClientProductDTO[].class));
 		Promotion p = promotionRepository.getCurrentPromotion();
-		// System.out.println(p);
 		List<Product> l2 = productRepository.findByPromotionId(p.getId());
 		for (Product product : l2) {
 			for (ClientProductDTO item : list) {

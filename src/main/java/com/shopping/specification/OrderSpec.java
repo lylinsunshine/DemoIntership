@@ -3,15 +3,12 @@ package com.shopping.specification;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
-import com.shopping.entity.Manufacturer;
 import com.shopping.entity.Order;
-import com.shopping.entity.Product;
 
 @Component
 public class OrderSpec {

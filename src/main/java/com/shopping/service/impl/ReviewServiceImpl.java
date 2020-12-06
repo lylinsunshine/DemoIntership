@@ -34,21 +34,18 @@ public class ReviewServiceImpl implements IReviewService {
 
 	@Override
 	public ResponseModel<List<Review>> getReviewByProductId(int productId) {
-		// TODO Auto-generated method stub
 		List<Review> list = reviewDAO.getReviewByProductId(productId);
 		return new ResponseModel<List<Review>>(list, HttpStatus.OK, "Get Success");
 	}
 
 	@Override
 	public ResponseModel<Review> addReview(Review review) {
-		// TODO Auto-generated method stub
 		reviewDAO.insertOrUpdate(review);
 		return new ResponseModel<Review>(null, HttpStatus.OK, "Get Success");
 	}
 
 	@Override
 	public ResponseModel<PageModel<Review>> findAll(int pageNumber, int pageSize, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		Page<Review> page = reviewDAO.page(pageNumber, pageSize, map);
 		PageModel<Review> pageModel = new PageModel<Review>(page.getContent(), pageNumber, page.getTotalPages());
 		return new ResponseModel<PageModel<Review>>(pageModel, HttpStatus.OK, "All reviews");
@@ -56,7 +53,6 @@ public class ReviewServiceImpl implements IReviewService {
 
 	@Override
 	public ResponseModel<Review> calculateProductRating(int reviewId) {
-		// TODO Auto-generated method stub
 		Review r = reviewRepository.findById(reviewId).get();
 		r.setApproved(!r.isApproved());
 		int productId = r.getProductEntity().getId();

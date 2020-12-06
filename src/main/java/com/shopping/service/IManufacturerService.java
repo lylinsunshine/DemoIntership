@@ -2,9 +2,7 @@ package com.shopping.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
-import com.shopping.dto.ListDTO;
 import com.shopping.entity.Manufacturer;
 import com.shopping.util.PageModel;
 import com.shopping.util.ResponseModel;

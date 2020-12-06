@@ -26,37 +26,31 @@ public class CategoryDAOImpl implements ICategoryDAO{
 
 	@Override
 	public void insertOrUpdate(Category entity) {
-		// TODO Auto-generated method stub
 		categoryRepository.save(entity);
 	}
 
 	@Override
 	public void delete(Category entity) {
-		// TODO Auto-generated method stub
 		categoryRepository.delete(entity);
 	}
 
 	@Override
 	public List<String> getAllCategoriesName() {
-		// TODO Auto-generated method stub
 		return categoryRepository.getAllCategoryName();
 	}
 
 	@Override
 	public List<Category> getAllCategories() {
-		// TODO Auto-generated method stub
 		return categoryRepository.findAll();
 	}
 
 	@Override
 	public List<Category> recusiveCategory() {
-		// TODO Auto-generated method stub
 		return categoryRepository.recusiveCategory();
 	}
 
 	@Override
 	public Page<Category> page(int pageNumber, int pageSize, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		String name = (String) map.get("name");
 		
 		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("name"));
@@ -66,7 +60,6 @@ public class CategoryDAOImpl implements ICategoryDAO{
 
 	@Override
 	public List<Category> getAllCategoriesNotHaveParent() {
-		// TODO Auto-generated method stub
 		List<Category> list = categoryRepository.findAll();
 		list.removeIf(category -> category.getParent()!=null);
 		return list;
@@ -74,37 +67,31 @@ public class CategoryDAOImpl implements ICategoryDAO{
 
 	@Override
 	public Category findById(int id) {
-		// TODO Auto-generated method stub
 		return categoryRepository.findById(id).get();
 	}
 
 	@Override
 	public boolean isNameExist(String name) {
-		// TODO Auto-generated method stub
 		return categoryRepository.existsByName(name);
 	}
 
 	@Override
 	public boolean isUrlExist(String url) {
-		// TODO Auto-generated method stub
 		return categoryRepository.existsByUrl(url);
 	}
 
 	@Override
 	public int isCategoryHaveChild(int id) {
-		// TODO Auto-generated method stub
 		return categoryRepository.isCategoryHaveChild(id);
 	}
 
 	@Override
 	public List<Category> findAllSubCategory(int id) {
-		// TODO Auto-generated method stub
 		return categoryRepository.findAllSubCategory(id);
 	}
 
 	@Override
 	public Category findByUrl(String url) {
-		// TODO Auto-generated method stub
 		return categoryRepository.findByUrl(url);
 	}
 

@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shopping.dto.ProductDTO;
 import com.shopping.entity.Category;
-import com.shopping.entity.Manufacturer;
 import com.shopping.service.ICategoryService;
 import com.shopping.util.PageModel;
 import com.shopping.util.ResponseModel;

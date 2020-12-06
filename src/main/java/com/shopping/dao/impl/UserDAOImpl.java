@@ -17,13 +17,11 @@ public class UserDAOImpl implements IUserDAO{
 
 	@Override
 	public User findByUsername(String username) {
-		// TODO Auto-generated method stub
 		return userRepository.findByUsername(username);
 	}
 
 	@Override
 	public User findByUsernameAndPassword(String username, String password) {
-		// TODO Auto-generated method stub
 		return userRepository.findByUsernameAndPassword(username, password);
 	}
 	

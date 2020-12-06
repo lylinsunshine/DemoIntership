@@ -13,12 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopping.dto.ClientCategoryPageDTO;
-import com.shopping.dto.ClientManufacturerDTO;
 import com.shopping.dto.ClientProductDTO;
-import com.shopping.dto.ProductDTO;
 import com.shopping.dto.ProductDetailDTO;
-import com.shopping.entity.Category;
-import com.shopping.entity.Product;
 import com.shopping.service.ICategoryService;
 import com.shopping.service.IProductService;
 import com.shopping.util.PageModel;

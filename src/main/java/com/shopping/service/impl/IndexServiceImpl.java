@@ -11,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.shopping.dto.ChartInfoDTO;
-import com.shopping.dto.ClientManufacturerDTO;
 import com.shopping.dto.ClientProductDTO;
-import com.shopping.dto.ClientPromotionIndexDTO;
 import com.shopping.dto.OrderPerMonthChartDTO;
 import com.shopping.dto.OrderTypePerMonthChartDTO;
 import com.shopping.dto.ProfitPerMonthChartDTO;
@@ -54,7 +52,6 @@ public class IndexServiceImpl implements IIndexService {
 
 	@Override
 	public ResponseModel<StatBoxDTO> getStat() {
-		// TODO Auto-generated method stub
 		int product = productRepository.getTotalProduct();
 		int order = orderRepository.getTotalOrderInMonth();
 		int category = categoryRepository.getTotalCategory();
@@ -66,7 +63,6 @@ public class IndexServiceImpl implements IIndexService {
 
 	@Override
 	public ResponseModel<ChartInfoDTO> getChartInfo() {
-		// TODO Auto-generated method stub
 		List<OrderPerMonthChartDTO> opm = orderRepository.getOrderPerMonth();
 		List<OrderTypePerMonthChartDTO> otpm = orderRepository.getOrderType();
 		List<ProfitPerMonthChartDTO> ppm = orderRepository.getProfitPerMonth();
@@ -78,7 +74,6 @@ public class IndexServiceImpl implements IIndexService {
 
 	@Override
 	public ResponseModel<Promotion> getLastestPromotionInfo() {
-		// TODO Auto-generated method stub
 		Promotion p = promotionRepository.getLastestPromotion();
 		return new ResponseModel<Promotion>(p, HttpStatus.OK, "Get Success");
 	}
@@ -86,12 +81,10 @@ public class IndexServiceImpl implements IIndexService {
 
 	@Override
 	public ResponseModel<List<ClientProductDTO>> getLastestProduct() {
-		// TODO Auto-generated method stub
 		List<Product> pList = productRepository.getLastestProduct();
 		List<ClientProductDTO> list = Arrays.asList(modelMapper.map(pList, ClientProductDTO[].class));
 		
 		Promotion p = promotionRepository.getCurrentPromotion();
-		// System.out.println(p);
 		List<Product> l2 = productRepository.findByPromotionId(p.getId());
 		for (Product product : l2) {
 			for (ClientProductDTO item : list) {
@@ -116,11 +109,9 @@ public class IndexServiceImpl implements IIndexService {
 
 	@Override
 	public ResponseModel<List<ClientProductDTO>> getHotProduct() {
-		// TODO Auto-generated method stub
 		List<Product> pList = productRepository.getTopProduct();
 		List<ClientProductDTO> list = Arrays.asList(modelMapper.map(pList, ClientProductDTO[].class));
 		Promotion p = promotionRepository.getCurrentPromotion();
-		// System.out.println(p);
 		List<Product> l2 = productRepository.findByPromotionId(p.getId());
 		for (Product product : l2) {
 			for (ClientProductDTO item : list) {
@@ -145,7 +136,6 @@ public class IndexServiceImpl implements IIndexService {
 
 	@Override
 	public ResponseModel<List<ClientProductDTO>> getRandomProduct() {
-		// TODO Auto-generated method stub
 		Promotion p = promotionRepository.getCurrentPromotion();
 		List<Product> pList = productRepository.getRandomProduct(p.getId());
 		List<ClientProductDTO> list = Arrays.asList(modelMapper.map(pList, ClientProductDTO[].class));
@@ -173,7 +163,6 @@ public class IndexServiceImpl implements IIndexService {
 
 	@Override
 	public ResponseModel<Promotion> getCurrentPromotion() {
-		// TODO Auto-generated method stub
 		Promotion p = promotionRepository.getCurrentPromotion();
 		return new ResponseModel<Promotion>(p, HttpStatus.OK, "Get Success");
 	}

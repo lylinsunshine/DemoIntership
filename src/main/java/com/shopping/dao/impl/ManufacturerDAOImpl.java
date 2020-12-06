@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,37 +27,31 @@ public class ManufacturerDAOImpl implements IManufacturerDAO {
 
 	@Override
 	public void insertOrUpdate(Manufacturer entity) {
-		// TODO Auto-generated method stub
 		manufacturerRepository.save(entity);
 	}
 
 	@Override
 	public void delete(Manufacturer entity) {
-		// TODO Auto-generated method stub
 		manufacturerRepository.delete(entity);
 	}
 
 	@Override
 	public void deleteById(int manufacturerId) {
-		// TODO Auto-generated method stub
 		manufacturerRepository.deleteById(manufacturerId);
 	}
 
 	@Override
 	public List<Manufacturer> findAll() {
-		// TODO Auto-generated method stub
 		return manufacturerRepository.findAll();
 	}
 
 	@Override
 	public Optional<Manufacturer> findById(int manufacturerId) {
-		// TODO Auto-generated method stub
 		return manufacturerRepository.findById(manufacturerId);
 	}
 
 	@Override
 	public Page<Manufacturer> page(int pageNumber, int pageSize, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		String name = (String) map.get("name");
 		String address = (String) map.get("address");
 
@@ -69,7 +62,6 @@ public class ManufacturerDAOImpl implements IManufacturerDAO {
 
 	@Override
 	public boolean isNameExist(String name) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

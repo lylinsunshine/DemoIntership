@@ -26,20 +26,17 @@ public class PromotionDAOImpl implements IPromotionDAO {
 
 	@Override
 	public void insertOrUpdate(Promotion entity) {
-		// TODO Auto-generated method stub
 		promotionRepository.save(entity);
 	}
 
 	@Override
 	public void delete(Promotion entity) {
-		// TODO Auto-generated method stub
 		promotionRepository.delete(entity);
 		
 	}
 
 	@Override
 	public Page<Promotion> page(int pageNumber, int pageSize, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		String name = (String) map.get("name");
 		Date startDate = (Date) map.get("startDate");
 		Date endDate = (Date) map.get("endDate");
@@ -52,7 +49,6 @@ public class PromotionDAOImpl implements IPromotionDAO {
 
 	@Override
 	public Promotion getPromotionById(int id) {
-		// TODO Auto-generated method stub
 		return promotionRepository.findById(id).get();
 	}
 

@@ -24,21 +24,18 @@ public class AttributeServiceImpl implements IAttributeService {
 	private AttributeRepository attributeRepository;
 
 	@Override
-	public List<Attribute> getAllAttributes() {
-		// TODO Auto-generated method stub 
+	public List<Attribute> getAllAttributes() { 
 		return attributeDAO.getAllAttributes();
 	}
 
 	@Override
 	public List<Attribute> addAttribute(Attribute attribute) {
-		// TODO Auto-generated method stub
 		attributeDAO.insertOrUpdate(attribute);		
 		return attributeDAO.getAllAttributes();
 	}
 
 	@Override
 	public ResponseModel<Boolean> isNameExist(String name) {
-		// TODO Auto-generated method stub
 		return new ResponseModel<Boolean>(attributeRepository.existsByName(name), HttpStatus.OK, "isNameExist");
 	}
 

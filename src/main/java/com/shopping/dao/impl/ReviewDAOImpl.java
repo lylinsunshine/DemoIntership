@@ -13,10 +13,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shopping.dao.IReviewDAO;
-import com.shopping.entity.Product;
 import com.shopping.entity.Review;
 import com.shopping.repository.ReviewRepositoy;
-import com.shopping.specification.ProductSpec;
 import com.shopping.specification.ReviewSpec;
 
 @Repository("reviewDAO")
@@ -28,25 +26,21 @@ public class ReviewDAOImpl implements IReviewDAO {
 
 	@Override
 	public void insertOrUpdate(Review entity) {
-		// TODO Auto-generated method stub
 		reviewRepository.save(entity);
 	}
 
 	@Override
 	public void delete(Review entity) {
-		// TODO Auto-generated method stub
 		reviewRepository.delete(entity);
 	}
 
 	@Override
 	public List<Review> findAll() {
-		// TODO Auto-generated method stub
 		return reviewRepository.findAll();
 	}
 
 	@Override
 	public Page<Review> page(int pageNumber, int pageSize, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 
 		String name = (String) map.get("name");
 		int rating = (int) map.get("rating");
@@ -59,7 +53,6 @@ public class ReviewDAOImpl implements IReviewDAO {
 
 	@Override
 	public List<Review> getReviewByProductId(int productId) {
-		// TODO Auto-generated method stub
 		return reviewRepository.findByProductId(productId);
 	}
 

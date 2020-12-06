@@ -21,31 +21,26 @@ public class OderDetailDAOImpl implements IOrderDetailDAO{
 
 	@Override
 	public void insertOrUpdate(OrderDetail entity) {
-		// TODO Auto-generated method stub
 		orderDetailRepository.save(entity);
 	}
 
 	@Override
 	public void delete(OrderDetail entity) {
-		// TODO Auto-generated method stub
 		orderDetailRepository.delete(entity);
 	}
 
 	@Override
 	public Page<OrderDetail> page(int pageNumber, int pageSize, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Double getTotalPriceByOrderId(int orderId) {
-		// TODO Auto-generated method stub
 		return orderDetailRepository.getTotalPriceByOrderId(orderId);
 	}
 
 	@Override
 	public List<OrderDetail> findAllByOrderId(int orderId) {
-		// TODO Auto-generated method stub
 		return orderDetailRepository.findAllByOrderId(orderId);
 	}
 

@@ -1,6 +1,5 @@
 package com.shopping.util;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -20,10 +19,8 @@ public class Encoder {
 			byte[] rawHmac = mac.doFinal(data.getBytes(StandardCharsets.UTF_8));
 	        return toHexString(rawHmac);
 		} catch (InvalidKeyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         return null;

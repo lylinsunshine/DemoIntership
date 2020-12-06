@@ -21,7 +21,6 @@ public class FileServiceImpl implements IFileService {
 
 	@Override
 	public String save(MultipartFile file) throws IOException {
-		// TODO Auto-generated method stub
 		String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 		String fileName = UUID.randomUUID().toString() +"."+ extension;
 //		System.out.println(file.getOriginalFilename());

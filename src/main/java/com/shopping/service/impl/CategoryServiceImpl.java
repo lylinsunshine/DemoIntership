@@ -2,11 +2,8 @@ package com.shopping.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -22,7 +19,6 @@ import com.shopping.dao.IProductDAO;
 import com.shopping.dto.ClientCategoryDTO;
 import com.shopping.dto.ClientCategoryPageDTO;
 import com.shopping.dto.ClientManufacturerDTO;
-import com.shopping.dto.ProductDTO;
 import com.shopping.entity.Category;
 import com.shopping.entity.Manufacturer;
 import com.shopping.entity.Product;
@@ -48,31 +44,26 @@ public class CategoryServiceImpl implements ICategoryService{
 	
 	@Override
 	public List<String> getAllCategoriesName() {
-		// TODO Auto-generated method stub
 		return categoryDAO.getAllCategoriesName();
 	}
 
 	@Override
 	public List<Category> getAllCategories() {
-		// TODO Auto-generated method stub
 		return categoryDAO.getAllCategories();
 	}
 
 	@Override
 	public List<Category> recusiveCategory() {
-		// TODO Auto-generated method stub
 		return categoryDAO.recusiveCategory();
 	}
 
 	@Override
 	public List<Category> findAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ResponseModel<PageModel<Category>> findAll(int pageNumber, int pageSize, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		Page<Category> page = categoryDAO.page(pageNumber, pageSize, map);
 		PageModel<Category> pageModel = new PageModel<Category>(page.getContent(), pageNumber, page.getTotalPages());
 		return new ResponseModel<PageModel<Category>>(pageModel, HttpStatus.OK, "All categories");
@@ -80,20 +71,17 @@ public class CategoryServiceImpl implements ICategoryService{
 
 	@Override
 	public List<Category> getAllCategoriesNotHaveParent() {
-		// TODO Auto-generated method stub
 		return categoryDAO.getAllCategoriesNotHaveParent();
 	}
 
 	@Override
 	public Category addCategory(Category category) {
-		// TODO Auto-generated method stub
 		categoryDAO.insertOrUpdate(category);
 		return category;
 	}
 
 	@Override
 	public Category updateCategory(Category category) {
-		// TODO Auto-generated method stub
 //		int id = category.getId();
 //		Category c = categoryDAO.findById(id);
 //		c.setName(category.getName());
@@ -105,29 +93,24 @@ public class CategoryServiceImpl implements ICategoryService{
 
 	@Override
 	public ResponseModel<Boolean> isNameExist(String name) {
-		// TODO Auto-generated method stub
 		boolean isNameExist = categoryDAO.isNameExist(name);
 		return new ResponseModel<Boolean>(isNameExist, HttpStatus.OK, "isNameExist");
 	}
 
 	@Override
 	public ResponseModel<Boolean> isUrlExist(String url) {
-		// TODO Auto-generated method stub
 		boolean isUrlExist = categoryDAO.isUrlExist(url);
 		return new ResponseModel<Boolean>(isUrlExist, HttpStatus.OK, "isUrlExist");
 	}
 
 	@Override
 	public ResponseModel<Integer> isCategoryHaveChild(int id) {
-		// TODO Auto-generated method stub
 		int count = categoryDAO.isCategoryHaveChild(id);
 		return new ResponseModel<Integer>(count, HttpStatus.OK, "isCategoryHaveChild");
 	}
 
 	@Override
-	public ResponseModel<ClientCategoryPageDTO> clientAllManufacturerBelongCategory(String url) {
-		// TODO Auto-generated method stub
-		
+	public ResponseModel<ClientCategoryPageDTO> clientAllManufacturerBelongCategory(String url) {	
 		Category category = categoryDAO.findByUrl(url);
 		if(category!=null) {
 			int categoryId = category.getId();
@@ -135,7 +118,6 @@ public class CategoryServiceImpl implements ICategoryService{
 			List<Manufacturer> manuList = manufacturerDAO.findAll();
 			
 			List<Category> cateList = categoryDAO.findAllSubCategory(categoryId);
-			
 			
 			List<ClientCategoryDTO> cateDtoList = Arrays.asList(modelMapper.map(cateList, ClientCategoryDTO[].class));
 			List<ClientManufacturerDTO> manuDtoList = Arrays.asList(modelMapper.map(manuList, ClientManufacturerDTO[].class));

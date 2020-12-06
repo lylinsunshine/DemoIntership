@@ -3,7 +3,6 @@ package com.shopping.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shopping.dto.ListDTO;
 import com.shopping.entity.Manufacturer;
 import com.shopping.service.IManufacturerService;
 import com.shopping.util.PageModel;

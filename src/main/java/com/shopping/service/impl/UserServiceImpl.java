@@ -37,12 +37,11 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private WishlistRepository wishlistRepository;
 	
-	@Autowired
-	private ModelMapper modelMapper;
+	// @Autowired
+	// private ModelMapper modelMapper;
 
 	@Override
 	public ResponseModel<String> login(LoginRequestDTO user) {
-		// TODO Auto-generated method stub
 		String token = "";
 		User u = userDAO.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 		if (u!=null) {
@@ -54,7 +53,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public ResponseModel<ClientUserInfoDTO> getUserInfo(String username) {
-		// TODO Auto-generated method stub
+		ModelMapper modelMapper = new ModelMapper();
 		User u = userDAO.findByUsername(username);
 		if(u!=null) {
 			ClientUserInfoDTO dto = modelMapper.map(u, ClientUserInfoDTO.class);
@@ -67,7 +66,6 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public ResponseModel<List<Address>> insertOrUpdateAddress(Address address) {
-		// TODO Auto-generated method stub
 		addressDAO.insertOrUpdate(address);
 		List<Address> list = addressDAO.findByUsername(address.getUserEntity().getUsername());
 		return new ResponseModel<List<Address>>(list, HttpStatus.OK, "Insert/Update Success");
@@ -75,7 +73,6 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public ResponseModel<List<Address>> deleteAddress(int id) {
-		// TODO Auto-generated method stub
 		Address address = addressDAO.findById(id);
 		addressDAO.deleteById(address.getId()); 
 		List<Address> list = addressDAO.findByUsername(address.getUserEntity().getUsername());
@@ -84,7 +81,6 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public ResponseModel<ClientUserInfoDTO> updateUserInfo(User user) {
-		// TODO Auto-generated method stub
 		User u = userDAO.findByUsername(user.getUsername());
 		if(!user.getPassword().isEmpty()) {
 			u.setPassword(user.getPassword());
@@ -98,7 +94,6 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public ResponseModel<String> register(RegisterRequestDTO user) {
-		// TODO Auto-generated method stub
 		User u = new User();
 		u.setUsername(user.getUsername());
 		u.setRole(user.getRole());
@@ -111,27 +106,23 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public ResponseModel<Boolean> isUserNameExist(String name) {
-		// TODO Auto-generated method stub
 		return new ResponseModel<Boolean>(userRepository.existsByUsername(name), HttpStatus.OK, "isUserNameExist");
 	}
 
 	@Override
 	public ResponseModel<Wishlist> addWishlist(Wishlist wishlist) {
-		// TODO Auto-generated method stub
 		wishlistRepository.save(wishlist);
 		return new ResponseModel<Wishlist>(null, HttpStatus.OK, "Add Success");
 	}
 
 	@Override
 	public ResponseModel<List<Wishlist>> getWishlist(String username) {
-		// TODO Auto-generated method stub
 		List<Wishlist> list = wishlistRepository.getWishLisByUsername(username);
 		return new ResponseModel<List<Wishlist>>(list, HttpStatus.OK, "Get Success");
 	}
 
 	@Override
 	public ResponseModel<Wishlist> deleteWishlist(int wishlistId) {
-		// TODO Auto-generated method stub
 		wishlistRepository.deleteById(wishlistId);
 		return new ResponseModel<Wishlist>(null, HttpStatus.OK, "Delete Success");
 	}

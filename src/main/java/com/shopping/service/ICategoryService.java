@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.shopping.dto.ClientCategoryPageDTO;
-import com.shopping.dto.ClientManufacturerDTO;
 import com.shopping.entity.Category;
-import com.shopping.entity.Manufacturer;
 import com.shopping.util.PageModel;
 import com.shopping.util.ResponseModel;
 

@@ -1,18 +1,12 @@
 package com.shopping.controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +17,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shopping.dto.ProductDTO;
-import com.shopping.entity.Manufacturer;
 import com.shopping.entity.Product;
 import com.shopping.entity.ProductAttribute;
 import com.shopping.entity.ProductImage;
@@ -134,8 +124,8 @@ public class ProductController {
 	
 	@PutMapping("/test")
 	public ResponseModel<Product> updateProduct(@RequestParam String product, @RequestParam MultipartFile[] files) throws IOException {
-		ObjectMapper objectMapper = new ObjectMapper();
-		Product p = objectMapper.readValue(product, Product.class);
+		//ObjectMapper objectMapper = new ObjectMapper();
+		//Product p = objectMapper.readValue(product, Product.class);
 		return new ResponseModel<Product>(null, HttpStatus.ACCEPTED, "update ok");
 	}
 	

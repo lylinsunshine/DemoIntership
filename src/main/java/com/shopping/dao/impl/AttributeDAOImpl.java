@@ -22,31 +22,26 @@ public class AttributeDAOImpl implements IAttributeDAO {
 	private AttributeRepository attributeRepository;
 	@Override
 	public void insertOrUpdate(Attribute entity) {
-		// TODO Auto-generated method stub
 		attributeRepository.save(entity); 
 	}
 
 	@Override
 	public void delete(Attribute entity) {
-		// TODO Auto-generated method stub
 		attributeRepository.delete(entity);
 	}
 
 	@Override
 	public Page<Attribute> page(int pageNumber, int pageSize, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Attribute> getAllAttributes() {
-		// TODO Auto-generated method stub
-		return attributeRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
+		return attributeRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
 	}
 
 	@Override
 	public Optional<Attribute> findById(int id) {
-		// TODO Auto-generated method stub
 		return attributeRepository.findById(id);
 	}
 
