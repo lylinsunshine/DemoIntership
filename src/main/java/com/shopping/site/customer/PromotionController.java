@@ -24,7 +24,7 @@ import com.shopping.util.ResponseModel;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/promotions")
+@RequestMapping("/api/v1/promotions")
 public class PromotionController {
 	
 	@Autowired

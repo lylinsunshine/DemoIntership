@@ -1,41 +1,29 @@
 package com.shopping.site.customer;
 
+import com.shopping.dto.ProductDTO;
+import com.shopping.entity.ProductAttribute;
+import com.shopping.entity.ProductImage;
+import com.shopping.service.IProductService;
+import com.shopping.site.entity.Product;
+import com.shopping.util.PageModel;
+import com.shopping.util.ResponseModel;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.shopping.dto.ProductDTO;
-import com.shopping.entity.Product;
-import com.shopping.entity.ProductAttribute;
-import com.shopping.entity.ProductImage;
-import com.shopping.service.IProductService;
-import com.shopping.util.PageModel;
-import com.shopping.util.ResponseModel;
-
 @CrossOrigin
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/v1/products")
+@RequiredArgsConstructor
 public class ProductController {
 
-	@Autowired
-	private IProductService productService;
+	private final IProductService productService;
 
 	@GetMapping
 	public ResponseModel<PageModel<ProductDTO>> getProductPage(@RequestParam int page, @RequestParam int size,

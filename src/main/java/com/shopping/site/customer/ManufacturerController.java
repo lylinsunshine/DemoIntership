@@ -23,7 +23,7 @@ import com.shopping.util.ResponseModel;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/manufacturers")
+@RequestMapping("/api/v1/manufacturers")
 public class ManufacturerController {
 
 	@Autowired

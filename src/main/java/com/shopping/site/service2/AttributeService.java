@@ -1,15 +1,9 @@
 package com.shopping.site.service2;
 
-import com.shopping.dao.IAttributeDAO;
-import com.shopping.entity.Attribute;
-import com.shopping.repository.AttributeRepository;
-import com.shopping.service.IAttributeService;
 import com.shopping.site.entity.Attribute;
 import com.shopping.site.repository.AttributeRepository;
-import com.shopping.site.util.ResponseModel;
-import com.shopping.util.ResponseModel;
+import com.shopping.site.util.Response;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -32,8 +26,8 @@ public class AttributeService {
 		return attributeRepository.save(attribute);
 	}
 
-	public ResponseModel<Boolean> isNameExist(String name) {
-		return new ResponseModel<Boolean>(attributeRepository.existsByName(name), HttpStatus.OK, "isNameExist");
+	public Response<Boolean> isNameExist(String name) {
+		return new Response<>(attributeRepository.existsByName(name), HttpStatus.OK, "isNameExist");
 	}
 
 }

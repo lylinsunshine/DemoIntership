@@ -10,14 +10,14 @@ import org.springframework.stereotype.Repository;
 
 import com.shopping.dto.TotalProductPerCategorChartDTO;
 
-@Repository("categoryRepository")
+@Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer>, JpaSpecificationExecutor<Category>{
 	
 	@Query("SELECT c.name FROM Category c")
-	List<String> getAllCategoryName();
+	List<String> getCategoriesName();
 
 	@Query("select c from Category c left join fetch c.children")
-	List<Category> recusiveCategory();
+	List<Category> getChildCategories();
 	
 	boolean existsByName(String name);
 	

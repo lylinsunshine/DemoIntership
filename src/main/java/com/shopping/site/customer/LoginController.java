@@ -13,7 +13,7 @@ import com.shopping.util.ResponseModel;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/api/v1/login")
 public class LoginController {
 	
 	@Autowired

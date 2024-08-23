@@ -3,7 +3,7 @@ package com.shopping.site.service;
 import java.util.List;
 
 import com.shopping.site.entity.Attribute;
-import com.shopping.site.util.ResponseModel;
+import com.shopping.site.util.Response;
 
 public interface IAttributeService {
 	
@@ -11,6 +11,6 @@ public interface IAttributeService {
 
 	List<Attribute> addAttribute(Attribute attribute);
 	
-	ResponseModel<Boolean> isNameExist(String name);
+	Response<Boolean> isNameExist(String name);
 
 }

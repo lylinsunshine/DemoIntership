@@ -1,24 +1,34 @@
 package com.shopping.site.service2;
 
-import com.shopping.dao.ICategoryDAO;
-import com.shopping.dao.IManufacturerDAO;
-import com.shopping.dao.IProductDAO;
 import com.shopping.dto.ClientCategoryDTO;
 import com.shopping.dto.ClientCategoryPageDTO;
 import com.shopping.dto.ClientManufacturerDTO;
 import com.shopping.entity.Category;
 import com.shopping.entity.Manufacturer;
 import com.shopping.entity.Product;
-import com.shopping.service.ICategoryService;
+import com.shopping.site.entity.Category;
+import com.shopping.site.entity.Manufacturer;
+import com.shopping.site.entity.Product;
+import com.shopping.site.repository.CategoryRepository;
+import com.shopping.site.repository.ManufacturerRepository;
+import com.shopping.site.repository.ProductRepository;
+import com.shopping.site.specification.CategorySpec;
+import com.shopping.site.util.PageResponse;
+import com.shopping.site.util.Response;
 import com.shopping.util.PageModel;
 import com.shopping.util.ResponseModel;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,59 +36,53 @@ import java.util.Map;
 
 @Service
 @Transactional
-public class CategoryService implements ICategoryService{
+@RequiredArgsConstructor
+public class CategoryService{
 
-	@Autowired
-	private ICategoryDAO categoryDAO;
-	
-	@Autowired
-	private IProductDAO productDAO;
-	
-	@Autowired
-	private IManufacturerDAO manufacturerDAO;
+	private final CategoryRepository categoryRepository;
+
+	private final ProductRepository productRepository;
+
+	private final ManufacturerRepository manufacturerRepository;
 	
 	@Autowired
 	private ModelMapper modelMapper;
-	
-	@Override
-	public List<String> getAllCategoriesName() {
-		return categoryDAO.getAllCategoriesName();
+
+	public List<String> getCategoriesName() {
+		return categoryRepository.getCategoriesName();
 	}
 
-	@Override
-	public List<Category> getAllCategories() {
-		return categoryDAO.getAllCategories();
+	public List<Category> getCategories() {
+		return categoryRepository.findAll();
 	}
 
-	@Override
-	public List<Category> recusiveCategory() {
-		return categoryDAO.recusiveCategory();
+	public List<Category> getChildCategory() {
+		return categoryRepository.getChildCategories();
 	}
 
-	@Override
-	public List<Category> findAll() {
-		return null;
+	public PageResponse<Category> page(int pageNumber, int pageSize, String name) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("name"));
+		Specification<Category> spec = CategorySpec.search(name);
+		Page<Category> page = categoryRepository.findAll(spec, pageable);
+
+		return new PageResponse<>(
+				page.getContent(),
+				page.getTotalPages(),
+				page.getTotalElements(),
+				page.getPageable().getPageNumber(),
+				page.getSize(),
+				0,
+				"");
 	}
 
-	@Override
-	public ResponseModel<PageModel<Category>> findAll(int pageNumber, int pageSize, Map<String, Object> map) {
-		Page<Category> page = categoryDAO.page(pageNumber, pageSize, map);
-		PageModel<Category> pageModel = new PageModel<Category>(page.getContent(), pageNumber, page.getTotalPages());
-		return new ResponseModel<PageModel<Category>>(pageModel, HttpStatus.OK, "All categories");
-	}
-
-	@Override
-	public List<Category> getAllCategoriesNotHaveParent() {
+	public List<Category> getCategoriesNotHaveParent() {
 		return categoryDAO.getAllCategoriesNotHaveParent();
 	}
 
-	@Override
-	public Category addCategory(Category category) {
-		categoryDAO.insertOrUpdate(category);
-		return category;
+	public Response<Category> addCategory(Category category) {
+		return new Response<>(categoryRepository.save(category), 0, "");
 	}
 
-	@Override
 	public Category updateCategory(Category category) {
 //		int id = category.getId();
 //		Category c = categoryDAO.findById(id);
@@ -90,25 +94,25 @@ public class CategoryService implements ICategoryService{
 	}
 
 	@Override
-	public ResponseModel<Boolean> isNameExist(String name) {
+	public Response<Boolean> isNameExist(String name) {
 		boolean isNameExist = categoryDAO.isNameExist(name);
-		return new ResponseModel<Boolean>(isNameExist, HttpStatus.OK, "isNameExist");
+		return new Response<Boolean>(isNameExist, HttpStatus.OK, "isNameExist");
 	}
 
 	@Override
-	public ResponseModel<Boolean> isUrlExist(String url) {
+	public Response<Boolean> isUrlExist(String url) {
 		boolean isUrlExist = categoryDAO.isUrlExist(url);
-		return new ResponseModel<Boolean>(isUrlExist, HttpStatus.OK, "isUrlExist");
+		return new Response<Boolean>(isUrlExist, HttpStatus.OK, "isUrlExist");
 	}
 
 	@Override
-	public ResponseModel<Integer> isCategoryHaveChild(int id) {
+	public Response<Integer> isCategoryHaveChild(int id) {
 		int count = categoryDAO.isCategoryHaveChild(id);
-		return new ResponseModel<Integer>(count, HttpStatus.OK, "isCategoryHaveChild");
+		return new Response<Integer>(count, HttpStatus.OK, "isCategoryHaveChild");
 	}
 
 	@Override
-	public ResponseModel<ClientCategoryPageDTO> clientAllManufacturerBelongCategory(String url) {	
+	public Response<ClientCategoryPageDTO> clientAllManufacturerBelongCategory(String url) {
 		Category category = categoryDAO.findByUrl(url);
 		if(category!=null) {
 			int categoryId = category.getId();
@@ -146,12 +150,10 @@ public class CategoryService implements ICategoryService{
 			List<ClientCategoryDTO> l2 = new ArrayList<ClientCategoryDTO>(cateDtoList);
 			l2.removeIf(client -> client.getTotalProduct()==0);
 			ClientCategoryPageDTO c = new ClientCategoryPageDTO(l1, l2);
-			return new ResponseModel<ClientCategoryPageDTO>(c, HttpStatus.OK, "isCategoryHaveChild");
+			return new Response<ClientCategoryPageDTO>(c, HttpStatus.OK, "isCategoryHaveChild");
 		} else {
-			return new ResponseModel<ClientCategoryPageDTO>(null, HttpStatus.OK, "isCategoryHaveChild");
+			return new Response<ClientCategoryPageDTO>(null, HttpStatus.OK, "isCategoryHaveChild");
 		}
-		
+
 	}
-
-
 }

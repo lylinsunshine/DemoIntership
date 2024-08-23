@@ -18,7 +18,7 @@ import com.shopping.util.ResponseModel;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/v1/orders")
 public class OrderController {
 	
 	@Autowired

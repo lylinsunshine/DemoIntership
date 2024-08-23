@@ -2,6 +2,8 @@ package com.shopping.site.customer;
 
 import java.util.List;
 
+import com.shopping.site.entity.Promotion;
+import com.shopping.site.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +26,12 @@ public class IndexPageController {
 	private IIndexService indexService;
 	
 	@GetMapping("/stat")
-	public ResponseModel<StatBoxDTO> getStat() {
+	public Response<StatBoxDTO> getStat() {
 		return indexService.getStat();
 	}
 	
 	@GetMapping("/chart")
-	public ResponseModel<ChartInfoDTO> getChartInfo() {
+	public Response<ChartInfoDTO> getChartInfo() {
 		return indexService.getChartInfo();
 	}
 	

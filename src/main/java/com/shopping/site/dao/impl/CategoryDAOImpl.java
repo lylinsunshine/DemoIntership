@@ -3,6 +3,7 @@ package com.shopping.dao.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.shopping.site.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,7 +51,7 @@ public class CategoryDAOImpl implements ICategoryDAO{
 	}
 
 	@Override
-	public Page<Category> page(int pageNumber, int pageSize, Map<String, Object> map) {
+	public Page<Category> page(int pageNumber, int pageSize, String name) {
 		String name = (String) map.get("name");
 		
 		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("name"));

@@ -11,8 +11,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PageModel<T> {
-	private List<T> list;
+public class PageResponse<T> {
+	private List<T> data;
+	private int totalPages;
+	private long totalItems;
 	private int currentPage;
-	private int totalPage;		
+	private int pageSize;
+	private int status;
+	private String message;
 }
