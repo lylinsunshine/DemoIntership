@@ -1,10 +1,9 @@
 package com.shopping.site.customer;
 
-import com.shopping.entity.Review;
-import com.shopping.service.IReviewService;
 import com.shopping.site.entity.Review;
-import com.shopping.util.PageModel;
-import com.shopping.util.ResponseModel;
+import com.shopping.site.service.ReviewService;
+import com.shopping.site.util.PageResponse;
+import com.shopping.site.util.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,17 +17,17 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ReviewController {
 
-	private IReviewService reviewService;
+	private final ReviewService reviewService;
 	
 	@GetMapping("/products/{productId}")
-	public ResponseModel<List<Review>> getReviewByProductId(@PathVariable int productId) {
+	public Response<List<Review>> getReviewByProductId(@PathVariable int productId) {
 		return reviewService.getReviewByProductId(productId);
 	}
 	
 	@GetMapping
-	public ResponseModel<PageModel<Review>> getProductPage(@RequestParam int page, @RequestParam int size,
-			@RequestParam(required = false) String name, @RequestParam(defaultValue = "0") int rating,
-			@RequestParam(required = false) String content) {
+	public Response<PageResponse<Review>> getProductPage(@RequestParam int page, @RequestParam int size,
+															  @RequestParam(required = false) String name, @RequestParam(defaultValue = "0") int rating,
+															  @RequestParam(required = false) String content) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", name);
@@ -39,7 +38,7 @@ public class ReviewController {
 	}
 	
 	@GetMapping("/{reviewId}")
-	public ResponseModel<Review> calculateProductRating(@PathVariable int reviewId) {
+	public Response<Review> calculateProductRating(@PathVariable int reviewId) {
 		return reviewService.calculateProductRating(reviewId);
 	}
 

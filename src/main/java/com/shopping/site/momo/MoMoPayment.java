@@ -1,11 +1,10 @@
-package com.shopping.momo;
+package com.shopping.site.momo;
 
+import com.shopping.site.util.Encoder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import com.shopping.util.Encoder;
 
 @Service
 public class MoMoPayment {

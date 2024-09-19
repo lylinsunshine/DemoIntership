@@ -12,11 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PageResponse<T> {
-	private List<T> data;
-	private int totalPages;
-	private long totalItems;
+	private List<T> list;
 	private int currentPage;
-	private int pageSize;
-	private int status;
-	private String message;
+	private int totalPage;
 }

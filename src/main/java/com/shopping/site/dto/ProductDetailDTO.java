@@ -1,16 +1,15 @@
-package com.shopping.dto;
+package com.shopping.site.dto;
 
-import java.util.List;
-import java.util.Set;
-
-import com.shopping.entity.Attribute;
-import com.shopping.entity.ProductAttribute;
-import com.shopping.entity.ProductImage;
-
+import com.shopping.site.entity.Attribute;
+import com.shopping.site.entity.ProductAttribute;
+import com.shopping.site.entity.ProductImage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter

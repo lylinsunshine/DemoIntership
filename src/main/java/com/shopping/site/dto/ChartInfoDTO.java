@@ -1,11 +1,11 @@
-package com.shopping.dto;
-
-import java.util.List;
+package com.shopping.site.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter

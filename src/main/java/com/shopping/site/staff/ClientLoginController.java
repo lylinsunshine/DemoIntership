@@ -1,26 +1,21 @@
 package com.shopping.site.staff;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.shopping.dto.LoginRequestDTO;
-import com.shopping.service.IUserService;
-import com.shopping.util.ResponseModel;
+import com.shopping.site.dto.LoginRequestDTO;
+import com.shopping.site.service.UserServiceImpl;
+import com.shopping.site.util.Response;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/clients/login")
+@RequiredArgsConstructor
 public class ClientLoginController {
-	
-	@Autowired
-	private IUserService userService;
+
+	private final UserServiceImpl userService;
 	
 	@PostMapping
-	public ResponseModel<String> login(@RequestBody LoginRequestDTO user) {
+	public Response<String> login(@RequestBody LoginRequestDTO user) {
 		return userService.login(user);
 	}
 }

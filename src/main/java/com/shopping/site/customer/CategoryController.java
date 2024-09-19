@@ -3,7 +3,7 @@ package com.shopping.site.customer;
 import java.util.List;
 
 import com.shopping.site.entity.Category;
-import com.shopping.site.service2.CategoryService;
+import com.shopping.site.service.CategoryService;
 import com.shopping.site.util.PageResponse;
 import com.shopping.site.util.Response;
 import lombok.RequiredArgsConstructor;
@@ -28,14 +28,14 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/search")
-	public PageResponse<Category> getCategoryPage(@RequestParam int page, @RequestParam int size,
+	public Response<PageResponse<Category>> getCategoryPage(@RequestParam int page, @RequestParam int size,
 															 @RequestParam(required = false) String name) {
 		return categoryService.page(page, size, name);
 	}
 	
 	@GetMapping("/all-no-parent")
 	public List<Category> getAllCategoriesNotHaveParent() {
-		return categoryService.getAllCategoriesNotHaveParent();
+		return categoryService.getCategoriesNotHaveParent();
 	}
 	
 	@PutMapping

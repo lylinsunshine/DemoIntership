@@ -1,29 +1,26 @@
 package com.shopping.site.customer;
 
-import java.util.List;
-
+import com.shopping.site.dto.ChartInfoDTO;
+import com.shopping.site.dto.ClientProductDTO;
+import com.shopping.site.dto.StatBoxDTO;
 import com.shopping.site.entity.Promotion;
+import com.shopping.site.service.IndexService;
 import com.shopping.site.util.Response;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shopping.dto.ChartInfoDTO;
-import com.shopping.dto.ClientProductDTO;
-import com.shopping.dto.StatBoxDTO;
-import com.shopping.entity.Promotion;
-import com.shopping.service.IIndexService;
-import com.shopping.util.ResponseModel;
+import java.util.List;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/index")
+@RequiredArgsConstructor
 public class IndexPageController {
-	
-	@Autowired
-	private IIndexService indexService;
+
+	private final IndexService indexService;
 	
 	@GetMapping("/stat")
 	public Response<StatBoxDTO> getStat() {
@@ -36,27 +33,27 @@ public class IndexPageController {
 	}
 	
 	@GetMapping("/promotion")
-	public ResponseModel<Promotion> getLastestPromotion() {
+	public Response<Promotion> getLastestPromotion() {
 		return indexService.getLastestPromotionInfo();
 	}
 	
 	@GetMapping("/current-promotion")
-	public ResponseModel<Promotion> getCurrentPromotion() {
+	public Response<Promotion> getCurrentPromotion() {
 		return indexService.getCurrentPromotion();
 	}
 	
 	@GetMapping("/lastest-product")
-	public ResponseModel<List<ClientProductDTO>> getLastestProduct() {
+	public Response<List<ClientProductDTO>> getLastestProduct() {
 		return indexService.getLastestProduct();
 	}
 	
 	@GetMapping("/hot-product")
-	public ResponseModel<List<ClientProductDTO>> getHotProduct() {
+	public Response<List<ClientProductDTO>> getHotProduct() {
 		return indexService.getHotProduct();
 	}
 	
 	@GetMapping("/random-product")
-	public ResponseModel<List<ClientProductDTO>> getRandomProduct() {
+	public Response<List<ClientProductDTO>> getRandomProduct() {
 		return indexService.getRandomProduct();
 	}
 

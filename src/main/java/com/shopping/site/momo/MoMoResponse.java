@@ -1,4 +1,4 @@
-package com.shopping.momo;
+package com.shopping.site.momo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

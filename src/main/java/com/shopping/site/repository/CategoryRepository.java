@@ -1,14 +1,13 @@
 package com.shopping.site.repository;
 
-import java.util.List;
-
+import com.shopping.site.dto.TotalProductPerCategorChartDTO;
 import com.shopping.site.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.shopping.dto.TotalProductPerCategorChartDTO;
+import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer>, JpaSpecificationExecutor<Category>{
@@ -36,5 +35,8 @@ public interface CategoryRepository extends JpaRepository<Category, Integer>, Jp
 	
 	@Query(value = "SELECT category.`name` as name, count(product_id) as total FROM category INNER JOIN product ON product.category_id = category.category_id GROUP BY category.`name`, category.category_id ORDER BY name asc", nativeQuery = true)
 	List<TotalProductPerCategorChartDTO> getTotalProduct();
+
+	@Query(value = "SELECT * FROM category where category.parent_id is not null", nativeQuery = true)
+	List<Category> getAllCategoriesNotHaveParent();
 	
 }

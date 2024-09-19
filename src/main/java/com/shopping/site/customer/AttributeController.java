@@ -1,7 +1,7 @@
 package com.shopping.site.customer;
 
 import com.shopping.site.entity.Attribute;
-import com.shopping.site.service2.AttributeService;
+import com.shopping.site.service.AttributeService;
 import com.shopping.site.util.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

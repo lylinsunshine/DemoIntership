@@ -1,9 +1,8 @@
-package com.shopping.dto;
+package com.shopping.site.dto;
 
 import java.util.Set;
 
-import com.shopping.entity.Address;
-
+import com.shopping.site.entity.Address;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,30 +1,22 @@
 package com.shopping.site.customer;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.shopping.service.IUserDetailsService;
-import com.shopping.util.ResponseModel;
+import com.shopping.site.service.UserDetailsService;
+import com.shopping.site.util.Response;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1/login")
+@RequiredArgsConstructor
 public class LoginController {
-	
-	@Autowired
-	private IUserDetailsService userService;
+
+	private final UserDetailsService userService;
 
 	@GetMapping
-	public ResponseModel<String> login(@RequestParam String username, @RequestParam String password) {
-		//String token = userService.login(username, password);
-		String token = userService.login(username, password); 
-		//System.out.println(token);
-		return new ResponseModel<String>(token, HttpStatus.ACCEPTED, "Token");
+	public Response<String> login(@RequestParam String username, @RequestParam String password) {
+		String token = userService.login(username, password);
+		return new Response<String>(token, 200, "Token");
 	}
 
 }

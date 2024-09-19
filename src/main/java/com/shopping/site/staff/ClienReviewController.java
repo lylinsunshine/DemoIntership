@@ -1,35 +1,28 @@
 package com.shopping.site.staff;
 
+import com.shopping.site.entity.Review;
+import com.shopping.site.service.ReviewService;
+import com.shopping.site.util.Response;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.shopping.entity.Review;
-import com.shopping.service.IReviewService;
-import com.shopping.util.ResponseModel;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/clients/reviews")
+@RequiredArgsConstructor
 public class ClienReviewController {
-	
-	@Autowired
-	private IReviewService reviewService;
+
+	private final ReviewService reviewService;
 	
 	@GetMapping("/{productId}")
-	public ResponseModel<List<Review>> getReviewByProductId(@PathVariable int productId) {
+	public Response<List<Review>> getReviewByProductId(@PathVariable int productId) {
 		return reviewService.getReviewByProductId(productId);
 	}
 	
 	@PostMapping("/add-review")
-	public ResponseModel<Review> addReview(@RequestBody Review review) {
+	public Response<Review> addReview(@RequestBody Review review) {
 		return reviewService.addReview(review);
 	}
 

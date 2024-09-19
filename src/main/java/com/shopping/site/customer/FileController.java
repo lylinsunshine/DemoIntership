@@ -2,7 +2,7 @@ package com.shopping.site.customer;
 
 import java.io.IOException;
 
-import com.shopping.site.service2.FileService;
+import com.shopping.site.service.FileService;
 import com.shopping.site.util.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;

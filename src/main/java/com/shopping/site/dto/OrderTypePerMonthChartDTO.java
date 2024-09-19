@@ -1,4 +1,4 @@
-package com.shopping.dto;
+package com.shopping.site.dto;
 
 public interface OrderTypePerMonthChartDTO {
 	String getType();
